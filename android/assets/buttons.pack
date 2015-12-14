@@ -1,0 +1,115 @@
+
+buttons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shadow
+  rotate: false
+  xy: 1, 495
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+play button
+  rotate: false
+  xy: 1, 93
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+bgting1
+  rotate: false
+  xy: 515, 748
+  size: 432, 259
+  orig: 432, 259
+  offset: 0, 0
+  index: -1
+playbtn
+  rotate: false
+  xy: 515, 496
+  size: 400, 250
+  orig: 400, 250
+  offset: 0, 0
+  index: -1
+particle
+  rotate: false
+  xy: 403, 193
+  size: 264, 300
+  orig: 264, 300
+  offset: 0, 0
+  index: -1
+Gift
+  rotate: false
+  xy: 669, 200
+  size: 306, 294
+  orig: 306, 294
+  offset: 0, 0
+  index: -1
+ZSjxE
+  rotate: false
+  xy: 1, 36
+  size: 300, 55
+  orig: 300, 55
+  offset: 0, 0
+  index: -1
+gift1
+  rotate: false
+  xy: 403, 7
+  size: 191, 184
+  orig: 191, 184
+  offset: 0, 0
+  index: -1
+shopping trolley
+  rotate: false
+  xy: 596, 69
+  size: 150, 122
+  orig: 150, 122
+  offset: 0, 0
+  index: -1
+image10
+  rotate: false
+  xy: 748, 91
+  size: 170, 107
+  orig: 170, 107
+  offset: 0, 0
+  index: -1
+shoppingT
+  rotate: false
+  xy: 596, 3
+  size: 77, 64
+  orig: 77, 64
+  offset: 0, 0
+  index: -1
+gift2
+  rotate: false
+  xy: 949, 956
+  size: 55, 51
+  orig: 55, 51
+  offset: 0, 0
+  index: -1
+gift3
+  rotate: false
+  xy: 1, 1
+  size: 41, 33
+  orig: 41, 33
+  offset: 0, 0
+  index: -1
+
+buttons2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+text
+  rotate: false
+  xy: 1, 259
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+badlogic
+  rotate: false
+  xy: 1, 1
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
