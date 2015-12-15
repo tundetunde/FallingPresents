@@ -91,8 +91,8 @@ public class EndGame extends State {
         sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
         sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
         String over = "GAME OVER";
-        shadow.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 10), (FallingPresentsGame.HEIGHT / 8) * 3);
-        font.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 10), (FallingPresentsGame.HEIGHT / 8) * 3);
+        shadow.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
+        font.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
         stage.getViewport().setCamera(camera);
         stage.draw();

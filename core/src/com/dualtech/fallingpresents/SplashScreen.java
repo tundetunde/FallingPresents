@@ -48,8 +48,8 @@ public class SplashScreen extends State{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         sb.begin();
         String title = "DUAL DIGITAL";
-        shadow.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 8), (FallingPresentsGame.HEIGHT / 8) * 3);
-        font.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 8), (FallingPresentsGame.HEIGHT / 8) * 3);
+        shadow.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
+        font.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
     }
 

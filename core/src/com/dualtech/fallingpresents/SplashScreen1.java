@@ -16,9 +16,11 @@ public class SplashScreen1 implements Screen {
     private BitmapFont font;
     private BitmapFont shadow;
     private GameStateManager gsm;
+    OrthographicCamera camera;
 
     public SplashScreen1(final GameStateManager gsm){
         super();
+        camera = new OrthographicCamera();
         Gdx.gl.glClearColor(1, 1, 0, 1);
         this.gsm = gsm;
         batch = new SpriteBatch();
@@ -26,6 +28,7 @@ public class SplashScreen1 implements Screen {
         font.getData().setScale(1.2f, 1.2f);
         shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
         shadow.getData().setScale(1.2f, 1.2f);
+        camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
     }
     @Override
     public void show() {
@@ -34,11 +37,12 @@ public class SplashScreen1 implements Screen {
 
     @Override
     public void render(float delta) {
+        batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         String title = "DUAL DIGITAL";
-        shadow.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 8), (FallingPresentsGame.HEIGHT / 8) * 3);
-        font.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 8), (FallingPresentsGame.HEIGHT / 8) * 3);
+        shadow.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 1000), (FallingPresentsGame.HEIGHT / 8) * 3);
+        font.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 1000), (FallingPresentsGame.HEIGHT / 8) * 3);
         batch.end();
     }
 
