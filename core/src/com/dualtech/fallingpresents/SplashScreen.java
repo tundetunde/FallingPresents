@@ -2,7 +2,6 @@ package com.dualtech.fallingpresents;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer;
@@ -18,11 +17,11 @@ public class SplashScreen extends State{
         super(gcm);
         Gdx.gl.glClearColor(1, 0, 0, 1);
         AssetLoader.load();
-        camera.setToOrtho(false, Game.WIDTH / 2, Game.HEIGHT / 2);
+        camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
-        font.getData().setScale(.45f, .45f);
+        font.getData().setScale(1.2f, 1.2f);
         shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
-        shadow.getData().setScale(.45f, .45f);
+        shadow.getData().setScale(1.2f, 1.2f);
         Timer.schedule(new Timer.Task() {
 
             @Override
@@ -48,9 +47,9 @@ public class SplashScreen extends State{
         sb.setProjectionMatrix(camera.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         sb.begin();
-        String title = "FALLING PRESENTS";
-        shadow.draw(sb, title, Game.WIDTH / 4 - (title.length() * 8), (Game.HEIGHT / 8) * 3);
-        font.draw(sb, title, Game.WIDTH / 4 - (title.length() * 8), (Game.HEIGHT / 8) * 3);
+        String title = "DUAL DIGITAL";
+        shadow.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 8), (FallingPresentsGame.HEIGHT / 8) * 3);
+        font.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 8), (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
     }
 

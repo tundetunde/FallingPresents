@@ -8,15 +8,18 @@ import com.badlogic.gdx.math.Vector3;
  * Created by tunde_000 on 12/12/2015.
  */
 public class ChristmasPresent {
-    private static final int GRAVITY = -5;
+    private static final int GRAVITY = -15;
     private Vector3 position;
     private Vector3 velocity;
     private Texture christmasPresent;
     private Rectangle bounds;
 
-    public ChristmasPresent(int x, int y){
-        christmasPresent = new Texture("gift3.png");
-        if(x < Game.WIDTH / 2 - christmasPresent.getWidth())
+    public ChristmasPresent(int x, int y, boolean second){
+        if(second)
+            christmasPresent = AssetLoader.christmasPresent2;
+        else
+            christmasPresent = AssetLoader.christmasPresent;
+        if(x < FallingPresentsGame.WIDTH / 2 - christmasPresent.getWidth())
             position = new Vector3(x, y, 0);
         else{
             position = new Vector3(x - christmasPresent.getWidth(), y, 0);

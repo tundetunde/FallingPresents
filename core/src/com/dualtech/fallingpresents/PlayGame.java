@@ -3,9 +3,7 @@ package com.dualtech.fallingpresents;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import java.util.Random;
 
@@ -20,23 +18,25 @@ public class PlayGame extends State {
     private static long score;
     private BitmapFont font;
     private BitmapFont shadow;
+    int cameraWidth = FallingPresentsGame.WIDTH / 2;
+    int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     //ParticleEffect snowEffect;
 
     protected PlayGame(GameStateManager gcm) {
         super(gcm);
         rand = new Random();
-        christmasPresent = new ChristmasPresent(rand.nextInt((Game.WIDTH / 2)), 300);
-        trolley = new Trolley(10, 0);
-        background = new Texture("bgting1.png");
-        camera.setToOrtho(false, Game.WIDTH / 2, Game.HEIGHT / 2);
+        christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight, false);
+        trolley = new Trolley(10, 0, false);
+        background = AssetLoader.background2;
+        camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         score = 0;
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
-        font.getData().setScale(.45f, .45f);
+        font.getData().setScale(1.2f, 1.2f);
         shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
-        shadow.getData().setScale(.45f, .45f);
+        shadow.getData().setScale(1.2f, 1.2f);
   /*      snowEffect = new ParticleEffect();
         snowEffect.load(Gdx.files.internal("snow_effect.txt"), Gdx.files.internal("particle.png"));
-        snowEffect.getEmitters().first().setPosition(Game.WIDTH / 4, Game.HEIGHT / 2);*/
+        snowEffect.getEmitters().first().setPosition(FallingPresentsGame.WIDTH / 4, FallingPresentsGame.HEIGHT / 2);*/
         //snowEffect.start();
     }
 
@@ -60,7 +60,7 @@ public class PlayGame extends State {
         trolley.update(dt);
         if(trolley.isCollide(christmasPresent.getBounds())){
             AssetLoader.coin.play();
-            christmasPresent = new ChristmasPresent(rand.nextInt(Game.WIDTH / 2), 300);
+            christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight, false);
             score++;
         }
 
@@ -75,8 +75,8 @@ public class PlayGame extends State {
         sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
         sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
         String scoreString = Long.toString(score);
-        shadow.draw(sb, scoreString, Game.WIDTH / 4 - scoreString.length() * 10, (Game.HEIGHT / 8) * 3);
-        font.draw(sb, scoreString, Game.WIDTH / 4 - scoreString.length() * 10, (Game.HEIGHT / 8) * 3);
+        shadow.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
+        font.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
         /*if (snowEffect.isComplete())
             snowEffect.reset();*/
@@ -90,7 +90,7 @@ public class PlayGame extends State {
         font.dispose();
         shadow.dispose();
         AssetLoader.coin.dispose();
-        System.out.println("Game is Over");
+        System.out.println("FallingPresentsGame is Over");
     }
     public long getScore() {
         return score;

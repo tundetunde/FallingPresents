@@ -2,5 +2,5 @@
 <resources>
 
     <string name="app_name">Falling Presents</string>
-
+    <string name="app_id">1234567890</string>
 </resources>
