@@ -13,13 +13,10 @@ public class Trolley {
     private Texture trolley;
     private Rectangle bounds;
 
-    public Trolley(int x, int y, boolean second){
+    public Trolley(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        if(second)
-            trolley = AssetLoader.trolley2;
-        else
-            trolley = AssetLoader.trolley;
+        trolley = AssetLoader.trolley;
         bounds = new Rectangle(x, y, trolley.getWidth(), trolley.getHeight());
     }
 
@@ -43,7 +40,7 @@ public class Trolley {
     }
 
     public void move(float x){
-        velocity.x = (x * 2);
+        velocity.x = (x * 3);
     }
 
     public Rectangle getBounds(){

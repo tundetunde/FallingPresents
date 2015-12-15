@@ -19,12 +19,8 @@ public class AssetLoader {
     //static ParticleEffect snowEffect;
     public static Sound coin;
     public static Texture background;
-    public static Texture background2;
-    public static Texture background3;
     public static Texture christmasPresent;
     public static Texture trolley;
-    public static Texture christmasPresent2;
-    public static Texture trolley2;
     public static TextureAtlas buttonAtlas;
     public static Skin skin;
     public static Drawable textSkin;
@@ -32,13 +28,9 @@ public class AssetLoader {
 
     public static void load(){
         background = new Texture("bg3.jpg");
-        background2 = new Texture("bg3.jpg");
-        background3 = new Texture("bg3.jpg");
         prefs = Gdx.app.getPreferences("Falling Presents");
-        christmasPresent = new Texture("present4.png");
-        christmasPresent2 = new Texture("present4.png");
+        christmasPresent = new Texture("present5.png");
         trolley = new Texture("trolley1.png");
-        trolley2 = new Texture("trolley1.png");
         buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
         skin = new Skin();
         skin.addRegions(buttonAtlas);
@@ -59,6 +51,11 @@ public class AssetLoader {
         snowEffect.getEmitters().first().setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight()/2);*/
         //snowEffect.start();
 
+    }
+
+    public static void disposeChristmasPresent(){
+        christmasPresent.dispose();
+        //christmasPresent2.dispose();
     }
 
     public Texture getBackground(){

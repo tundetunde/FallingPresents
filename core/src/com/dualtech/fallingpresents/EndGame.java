@@ -30,9 +30,9 @@ public class EndGame extends State {
 
     protected EndGame(GameStateManager gcm, Vector3 presentPosition, Vector3 trolleyPosition) {
         super(gcm);
-        christmasPresent = new ChristmasPresent((int)presentPosition.x, (int)presentPosition.y, true);
-        trolley = new Trolley((int)trolleyPosition.x, (int)trolleyPosition.y, true);
-        background = AssetLoader.background3;
+        christmasPresent = new ChristmasPresent((int)presentPosition.x, (int)presentPosition.y);
+        trolley = new Trolley((int)trolleyPosition.x, (int)trolleyPosition.y);
+        background = AssetLoader.background;
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
         font.getData().setScale(1.2f, 1.2f);

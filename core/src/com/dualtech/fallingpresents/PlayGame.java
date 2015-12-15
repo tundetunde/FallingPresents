@@ -25,9 +25,9 @@ public class PlayGame extends State {
     protected PlayGame(GameStateManager gcm) {
         super(gcm);
         rand = new Random();
-        christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight, false);
-        trolley = new Trolley(10, 0, false);
-        background = AssetLoader.background2;
+        christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
+        trolley = new Trolley(10, 0);
+        background = AssetLoader.background;
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         score = 0;
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
@@ -60,7 +60,7 @@ public class PlayGame extends State {
         trolley.update(dt);
         if(trolley.isCollide(christmasPresent.getBounds())){
             AssetLoader.coin.play();
-            christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight, false);
+            christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
             score++;
         }
 
@@ -84,12 +84,13 @@ public class PlayGame extends State {
 
     @Override
     public void dispose() {
-        background.dispose();
+        /*background.dispose();
         christmasPresent.dispose();
+        AssetLoader.disposeChristmasPresent();
         trolley.dispose();
         font.dispose();
         shadow.dispose();
-        AssetLoader.coin.dispose();
+        AssetLoader.coin.dispose();*/
         System.out.println("FallingPresentsGame is Over");
     }
     public long getScore() {

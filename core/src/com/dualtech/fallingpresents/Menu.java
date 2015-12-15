@@ -90,7 +90,7 @@ public class Menu extends State {
 
     @Override
     public void dispose() {
-        background.dispose();
+        //background.dispose();
         stage.dispose();
     }
 }

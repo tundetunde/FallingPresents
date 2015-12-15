@@ -14,11 +14,8 @@ public class ChristmasPresent {
     private Texture christmasPresent;
     private Rectangle bounds;
 
-    public ChristmasPresent(int x, int y, boolean second){
-        if(second)
-            christmasPresent = AssetLoader.christmasPresent2;
-        else
-            christmasPresent = AssetLoader.christmasPresent;
+    public ChristmasPresent(int x, int y){
+        christmasPresent = AssetLoader.christmasPresent;
         if(x < FallingPresentsGame.WIDTH / 2 - christmasPresent.getWidth())
             position = new Vector3(x, y, 0);
         else{
