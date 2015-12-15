@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.Random;
 
@@ -20,11 +24,15 @@ public class PlayGame extends State {
     private BitmapFont shadow;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
+    ImageButton leftArrow;
+    ImageButton rightArrow;
+    Stage stage = new Stage();
     //ParticleEffect snowEffect;
 
     protected PlayGame(GameStateManager gcm) {
         super(gcm);
         rand = new Random();
+        AssetLoader.setMotionControl(true);
         christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
         trolley = new Trolley(10, 0);
         background = AssetLoader.background;
@@ -34,16 +42,49 @@ public class PlayGame extends State {
         font.getData().setScale(1.2f, 1.2f);
         shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
         shadow.getData().setScale(1.2f, 1.2f);
+        leftArrow = new ImageButton(AssetLoader.leftarrowButtonStyle);
+        leftArrow.setPosition(cameraWidth / 7, cameraHeight / 5);
+        rightArrow = new ImageButton(AssetLoader.rightArrowButtonStyle);
+        rightArrow.setPosition(cameraWidth / 7 * 5 + rightArrow.getWidth(), cameraHeight / 5);
+        if(!AssetLoader.getMotionControl()){
+            stage.addActor(leftArrow);
+            stage.addActor(rightArrow);
+        }
+
+        Gdx.input.setInputProcessor(stage);
+        initializeButton();
   /*      snowEffect = new ParticleEffect();
         snowEffect.load(Gdx.files.internal("snow_effect.txt"), Gdx.files.internal("particle.png"));
         snowEffect.getEmitters().first().setPosition(FallingPresentsGame.WIDTH / 4, FallingPresentsGame.HEIGHT / 2);*/
         //snowEffect.start();
     }
 
+    private void initializeButton(){
+        leftArrow.addListener(new ClickListener() {
+            @Override
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("Left");
+                trolley.move(-0.1f);
+            }
+        });
+
+        rightArrow.addListener(new ClickListener() {
+            @Override
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("Right");
+                trolley.move(0.1f);
+            }
+        });
+    }
+
     @Override
     protected void handleInput() {
-        float y = Gdx.input.getAccelerometerY();
-        trolley.move(y);
+        if(AssetLoader.getMotionControl()){
+            float y = Gdx.input.getAccelerometerY();
+            trolley.move(y);
+        }
     }
 
     @Override
@@ -78,6 +119,8 @@ public class PlayGame extends State {
         shadow.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
         font.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
+        stage.getViewport().setCamera(camera);
+        stage.draw();
         /*if (snowEffect.isComplete())
             snowEffect.reset();*/
     }
