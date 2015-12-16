@@ -24,6 +24,7 @@ public class EndGame extends State {
     TextureAtlas buttonAtlas;
     private TextButton playButton;
     private TextButton leaderBoardButton;
+    private TextButton rateButton;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     Stage stage;
@@ -43,13 +44,14 @@ public class EndGame extends State {
         textButtonStyle = AssetLoader.normalTextButtonStyle;
         initializeButtons();
         stage.addActor(playButton);
+        stage.addActor(rateButton);
         stage.addActor(leaderBoardButton);
         Gdx.input.setInputProcessor(stage);
     }
 
     public void initializeButtons(){
         playButton = new TextButton("PLAY", textButtonStyle);
-        playButton.setPosition(cameraWidth / 6, cameraHeight / 2);
+        playButton.setPosition(cameraWidth / 6, cameraHeight / 3);
         //playButton.setSize(100, 30);
         playButton.addListener(new ClickListener() {
             @Override
@@ -61,7 +63,7 @@ public class EndGame extends State {
         });
 
         leaderBoardButton = new TextButton("Leaderboard", textButtonStyle);
-        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 2);
+        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3);
         //leaderBoardButton.setSize(100, 30);
         leaderBoardButton.addListener(new ClickListener() {
             @Override
@@ -69,6 +71,18 @@ public class EndGame extends State {
                 super.clicked(event, x, y);
                 System.out.println("LeaderBoard: Button Clicked");
                 gcm.set(new PlayGame(gcm));
+            }
+        });
+
+        rateButton = new TextButton("Rate", textButtonStyle);
+        rateButton.setPosition(cameraWidth / 2 - (rateButton.getWidth() / 2), cameraHeight / 2);
+        //leaderBoardButton.setSize(100, 30);
+        rateButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("Rate: Button Clicked");
+                Gdx.net.openURI("https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents");
             }
         });
     }
@@ -91,8 +105,8 @@ public class EndGame extends State {
         sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
         sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
         String over = "GAME OVER";
-        shadow.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
-        font.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
+        shadow.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 27), (FallingPresentsGame.HEIGHT / 8) * 3);
+        font.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 27), (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
         stage.getViewport().setCamera(camera);
         stage.draw();
