@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -28,6 +29,7 @@ public class AssetLoader {
     public static Skin leftSkin;
     public static Skin rightSkin;
     public static Drawable textSkin;
+    public static Label scoreBoard;
     public static TextButton.TextButtonStyle normalTextButtonStyle;
     public static ImageButton.ImageButtonStyle leftarrowButtonStyle;
     public static ImageButton.ImageButtonStyle rightArrowButtonStyle;

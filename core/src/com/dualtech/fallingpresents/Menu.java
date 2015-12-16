@@ -24,12 +24,18 @@ public class Menu extends State {
     BitmapFont font;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
+    private BitmapFont fontTitle;
+    private BitmapFont shadow;
 
     public Menu(final GameStateManager gcm) {
         super(gcm);
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         background = AssetLoader.background;
         font = new BitmapFont();
+        fontTitle = new BitmapFont(Gdx.files.internal("text.fnt"));
+        fontTitle.getData().setScale(1.2f, 1.2f);
+        shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
+        shadow.getData().setScale(1.2f, 1.2f);
         stage = new Stage();
         buttonAtlas = AssetLoader.buttonAtlas;
         textButtonStyle = AssetLoader.normalTextButtonStyle;
@@ -83,6 +89,9 @@ public class Menu extends State {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
+        String title = "MAIN MENU";
+        shadow.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
+        fontTitle.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 25), (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
         stage.getViewport().setCamera(camera);
         stage.draw();
