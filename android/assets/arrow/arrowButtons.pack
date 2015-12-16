@@ -1,0 +1,33 @@
+
+arrowButtons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+left arrow
+  rotate: false
+  xy: 1, 1
+  size: 100, 76
+  orig: 100, 76
+  offset: 0, 0
+  index: -1
+left button clicked
+  rotate: false
+  xy: 103, 1
+  size: 100, 76
+  orig: 100, 76
+  offset: 0, 0
+  index: -1
+right arrow
+  rotate: false
+  xy: 205, 1
+  size: 100, 76
+  orig: 100, 76
+  offset: 0, 0
+  index: -1
+right button clicked
+  rotate: false
+  xy: 307, 1
+  size: 100, 76
+  orig: 100, 76
+  offset: 0, 0
+  index: -1
