@@ -1,0 +1,33 @@
+
+menuButtons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+play
+  rotate: false
+  xy: 1, 1
+  size: 65, 62
+  orig: 65, 62
+  offset: 0, 0
+  index: -1
+rate
+  rotate: false
+  xy: 68, 1
+  size: 65, 62
+  orig: 65, 62
+  offset: 0, 0
+  index: -1
+score
+  rotate: false
+  xy: 135, 1
+  size: 65, 62
+  orig: 65, 62
+  offset: 0, 0
+  index: -1
+share
+  rotate: false
+  xy: 202, 1
+  size: 65, 62
+  orig: 65, 62
+  offset: 0, 0
+  index: -1
