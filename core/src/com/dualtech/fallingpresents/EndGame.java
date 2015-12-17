@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -20,11 +21,8 @@ public class EndGame extends State {
     private Trolley trolley;
     private BitmapFont font;
     private BitmapFont shadow;
-    TextButton.TextButtonStyle textButtonStyle;
     TextureAtlas buttonAtlas;
-    private TextButton playButton;
-    private TextButton leaderBoardButton;
-    private TextButton rateButton;
+    private ImageButton playButton,leaderBoardButton,rateButton;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     Stage stage;
@@ -41,7 +39,6 @@ public class EndGame extends State {
         shadow.getData().setScale(1.2f, 1.2f);
         stage = new Stage();
         buttonAtlas = AssetLoader.buttonAtlas;
-        textButtonStyle = AssetLoader.normalTextButtonStyle;
         initializeButtons();
         stage.addActor(playButton);
         stage.addActor(rateButton);
@@ -50,7 +47,7 @@ public class EndGame extends State {
     }
 
     public void initializeButtons(){
-        playButton = new TextButton("PLAY", textButtonStyle);
+        playButton = new ImageButton(AssetLoader.playStyle);
         playButton.setPosition(cameraWidth / 6, cameraHeight / 3);
         //playButton.setSize(100, 30);
         playButton.addListener(new ClickListener() {
@@ -62,7 +59,7 @@ public class EndGame extends State {
             }
         });
 
-        leaderBoardButton = new TextButton("Leaderboard", textButtonStyle);
+        leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
         leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3);
         //leaderBoardButton.setSize(100, 30);
         leaderBoardButton.addListener(new ClickListener() {
@@ -74,7 +71,7 @@ public class EndGame extends State {
             }
         });
 
-        rateButton = new TextButton("Rate", textButtonStyle);
+        rateButton = new ImageButton(AssetLoader.rateStyle);
         rateButton.setPosition(cameraWidth / 2 - (rateButton.getWidth() / 2), cameraHeight / 2);
         //leaderBoardButton.setSize(100, 30);
         rateButton.addListener(new ClickListener() {

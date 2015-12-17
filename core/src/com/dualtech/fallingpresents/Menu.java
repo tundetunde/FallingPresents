@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -16,10 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class Menu extends State {
 
     private Texture background;
-    private TextButton playButton;
-    private TextButton leaderBoardButton;
-    private TextButton rateButton;
-    TextButton.TextButtonStyle textButtonStyle;
+    private ImageButton playButton,leaderBoardButton,rateButton;
     TextureAtlas buttonAtlas;
     Stage stage;
     BitmapFont font;
@@ -39,7 +37,6 @@ public class Menu extends State {
         shadow.getData().setScale(1.2f, 1.2f);
         stage = new Stage();
         buttonAtlas = AssetLoader.buttonAtlas;
-        textButtonStyle = AssetLoader.normalTextButtonStyle;
         initializeButtons();
         stage.addActor(playButton);
         stage.addActor(rateButton);
@@ -48,7 +45,7 @@ public class Menu extends State {
     }
 
     public void initializeButtons(){
-        playButton = new TextButton("PLAY", textButtonStyle);
+        playButton = new ImageButton(AssetLoader.playStyle);
         playButton.setPosition(cameraWidth / 6, cameraHeight / 3);
         //playButton.setSize(100, 30);
         playButton.addListener(new ClickListener() {
@@ -60,7 +57,7 @@ public class Menu extends State {
             }
         });
 
-        leaderBoardButton = new TextButton("Leaderboard", textButtonStyle);
+        leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
         leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3);
         //leaderBoardButton.setSize(100, 30);
         leaderBoardButton.addListener(new ClickListener() {
@@ -72,7 +69,7 @@ public class Menu extends State {
             }
         });
 
-        rateButton = new TextButton("Rate", textButtonStyle);
+        rateButton = new ImageButton(AssetLoader.rateStyle);
         rateButton.setPosition(cameraWidth / 2 - (rateButton.getWidth() / 2), cameraHeight / 2);
         //leaderBoardButton.setSize(100, 30);
         rateButton.addListener(new ClickListener() {

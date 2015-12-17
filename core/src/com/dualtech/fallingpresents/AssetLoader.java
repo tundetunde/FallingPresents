@@ -18,21 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  */
 public class AssetLoader {
     public static Preferences prefs;
-    //static ParticleEffect snowEffect;
     public static Sound coin;
-    public static Texture background;
-    public static Texture christmasPresent;
-    public static Texture trolley;
-    public static TextureAtlas buttonAtlas;
-    public static TextureAtlas arrowButtonAtlas;
-    public static Skin skin;
-    public static Skin leftSkin;
-    public static Skin rightSkin;
-    public static Drawable textSkin;
+    public static Texture background, christmasPresent,trolley;
+    public static TextureAtlas buttonAtlas, arrowButtonAtlas;
+    public static Skin skin,leftSkin, rightSkin, menuSkin;
     public static Label scoreBoard;
-    public static TextButton.TextButtonStyle normalTextButtonStyle;
-    public static ImageButton.ImageButtonStyle leftarrowButtonStyle;
-    public static ImageButton.ImageButtonStyle rightArrowButtonStyle;
+    public static ImageButton.ImageButtonStyle leftarrowButtonStyle, rightArrowButtonStyle, playStyle, rateStyle, scoreStyle;
 
     public static void load(){
         background = new Texture("bg3.jpg");
@@ -47,12 +38,15 @@ public class AssetLoader {
         skin.addRegions(buttonAtlas);
         leftSkin.addRegions(arrowButtonAtlas);
         rightSkin.addRegions(arrowButtonAtlas);
-        textSkin = skin.getDrawable("ZSjxE");
-        normalTextButtonStyle = new TextButton.TextButtonStyle();
-        normalTextButtonStyle.font = new BitmapFont();;
-        normalTextButtonStyle.up = AssetLoader.textSkin;
-        normalTextButtonStyle.down = AssetLoader.textSkin;
-        normalTextButtonStyle.checked = AssetLoader.textSkin;
+
+        menuSkin= new Skin();
+        menuSkin.addRegions(new TextureAtlas(Gdx.files.internal("menuButtons.pack")));
+        playStyle = new ImageButton.ImageButtonStyle();
+        playStyle.imageUp = menuSkin.getDrawable("play");
+        rateStyle = new ImageButton.ImageButtonStyle();
+        rateStyle.imageUp = menuSkin.getDrawable("rate");
+        scoreStyle = new ImageButton.ImageButtonStyle();
+        scoreStyle.imageUp = menuSkin.getDrawable("score");
 
         leftarrowButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
         leftarrowButtonStyle.up = leftSkin.getDrawable("left arrow");  //Set image for not pressed button
@@ -77,16 +71,10 @@ public class AssetLoader {
             prefs.putBoolean("motionControl", true);
         }
         coin = Gdx.audio.newSound(Gdx.files.internal("coin.wav"));
-        /*snowEffect = new ParticleEffect();
-        snowEffect.load(Gdx.files.internal("snow_effect.txt"), Gdx.files.internal("particle.png"));
-        snowEffect.getEmitters().first().setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight()/2);*/
-        //snowEffect.start();
-
     }
 
     public static void disposeChristmasPresent(){
         christmasPresent.dispose();
-        //christmasPresent2.dispose();
     }
 
     public Texture getBackground(){
