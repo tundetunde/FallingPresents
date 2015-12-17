@@ -17,7 +17,7 @@ public class Trolley {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         trolley = AssetLoader.trolley;
-        bounds = new Rectangle(x, y, trolley.getWidth(), trolley.getHeight());
+        bounds = new Rectangle(x, y, trolley.getWidth(), trolley.getHeight() - 40);
     }
 
     public Vector3 getPosition() {
