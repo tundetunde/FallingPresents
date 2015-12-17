@@ -46,7 +46,7 @@ public class Menu extends State {
 
     public void initializeButtons(){
         playButton = new ImageButton(AssetLoader.playStyle);
-        playButton.setPosition(cameraWidth / 6, cameraHeight / 3);
+        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3);
         //playButton.setSize(100, 30);
         playButton.addListener(new ClickListener() {
             @Override
