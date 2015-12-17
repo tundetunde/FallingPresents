@@ -18,9 +18,9 @@ public class SplashScreen extends State{
         Gdx.gl.glClearColor(1, 0, 0, 1);
         AssetLoader.load();
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
-        font = new BitmapFont(Gdx.files.internal("text.fnt"));
+        font = new BitmapFont(Gdx.files.internal("images/text.fnt"));
         font.getData().setScale(1.2f, 1.2f);
-        shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
+        shadow = new BitmapFont(Gdx.files.internal("images/shadow.fnt"));
         shadow.getData().setScale(1.2f, 1.2f);
         Timer.schedule(new Timer.Task() {
 

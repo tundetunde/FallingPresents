@@ -24,9 +24,9 @@ public class SplashScreen1 implements Screen {
         Gdx.gl.glClearColor(1, 1, 0, 1);
         this.gsm = gsm;
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("text.fnt"));
+        font = new BitmapFont(Gdx.files.internal("images/text.fnt"));
         font.getData().setScale(1.2f, 1.2f);
-        shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
+        shadow = new BitmapFont(Gdx.files.internal("images/shadow.fnt"));
         shadow.getData().setScale(1.2f, 1.2f);
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
     }

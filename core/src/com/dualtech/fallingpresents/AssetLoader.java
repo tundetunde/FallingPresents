@@ -26,11 +26,11 @@ public class AssetLoader {
     public static ImageButton.ImageButtonStyle leftarrowButtonStyle, rightArrowButtonStyle, playStyle, rateStyle, scoreStyle;
 
     public static void load(){
-        background = new Texture("bg3.jpg");
+        background = new Texture("images/bg3.jpg");
         prefs = Gdx.app.getPreferences("Falling Presents");
-        christmasPresent = new Texture("present5.png");
-        trolley = new Texture("trolley1.png");
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+        christmasPresent = new Texture("images/present5.png");
+        trolley = new Texture("images/trolley1.png");
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("images/buttons.pack"));
         arrowButtonAtlas = new TextureAtlas(Gdx.files.internal("arrow/arrowButtons.pack"));
         skin = new Skin();
         leftSkin = new Skin();
