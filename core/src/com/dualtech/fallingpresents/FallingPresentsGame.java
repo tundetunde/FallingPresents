@@ -10,10 +10,8 @@ import com.badlogic.gdx.utils.Timer;
 public class FallingPresentsGame extends Game {
 	public static final int HEIGHT = 1440;
 	public static final int WIDTH = 2400;
-	//public static final String TITLE = "Falling Presents";
 	private GameStateManager gsm;
 	private SpriteBatch batch;
-	//Texture img;
 
 	public FallingPresentsGame() {
 		super();
@@ -28,7 +26,6 @@ public class FallingPresentsGame extends Game {
 			@Override
 			public void run() {
 				AssetLoader.load();
-
 			}
 		}).start();
 		gsm.push(new SplashScreen(gsm));
@@ -44,8 +41,6 @@ public class FallingPresentsGame extends Game {
 				}, 3);
 			}
 		}).start();
-		//ba/*tch = new SpriteBatch();
-		//gsm = new GameStateManager();
 	}
 
 	@Override
