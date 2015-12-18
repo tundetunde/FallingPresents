@@ -23,24 +23,18 @@ public class SplashScreen extends State{
         shadow = new BitmapFont(Gdx.files.internal("images/shadow.fnt"));
         shadow.getData().setScale(1.2f, 1.2f);
         Timer.schedule(new Timer.Task() {
-
             @Override
             public void run() {
-                //changeScreen();
                 gcm.push(new Menu(gcm));
             }
-
         }, 3);
     }
 
     @Override
-    protected void handleInput() {
-
-    }
+    protected void handleInput() {}
 
     @Override
-    public void update(float dt) {
-    }
+    public void update(float dt) {}
 
     @Override
     public void render(SpriteBatch sb) {

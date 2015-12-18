@@ -43,10 +43,13 @@ public class AssetLoader {
         menuSkin.addRegions(new TextureAtlas(Gdx.files.internal("menuButtons.pack")));
         playStyle = new ImageButton.ImageButtonStyle();
         playStyle.imageUp = menuSkin.getDrawable("play");
+        playStyle.imageDown = menuSkin.getDrawable("playR");
         rateStyle = new ImageButton.ImageButtonStyle();
         rateStyle.imageUp = menuSkin.getDrawable("rate");
+        rateStyle.imageDown = menuSkin.getDrawable("rateR");
         scoreStyle = new ImageButton.ImageButtonStyle();
         scoreStyle.imageUp = menuSkin.getDrawable("score");
+        scoreStyle.imageDown = menuSkin.getDrawable("scoreR");
 
         leftarrowButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
         leftarrowButtonStyle.up = leftSkin.getDrawable("left arrow");  //Set image for not pressed button

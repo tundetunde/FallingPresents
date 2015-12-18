@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer;
 
@@ -17,12 +19,16 @@ public class SplashScreen1 implements Screen {
     private BitmapFont shadow;
     private GameStateManager gsm;
     OrthographicCamera camera;
+    Texture bgTexture;
+    Sprite bgSprite;
 
     public SplashScreen1(final GameStateManager gsm){
         super();
         camera = new OrthographicCamera();
+        //bgTexture = new Texture("splash.png");
         Gdx.gl.glClearColor(1, 1, 0, 1);
         this.gsm = gsm;
+        //bgSprite = new Sprite(bgTexture);
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("images/text.fnt"));
         font.getData().setScale(1.2f, 1.2f);
@@ -30,16 +36,16 @@ public class SplashScreen1 implements Screen {
         shadow.getData().setScale(1.2f, 1.2f);
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
     }
-    @Override
-    public void show() {
 
-    }
+    @Override
+    public void show() {}
 
     @Override
     public void render(float delta) {
         batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        //bgSprite.draw(batch);
         String title = "DUAL DIGITAL";
         shadow.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 1000), (FallingPresentsGame.HEIGHT / 8) * 3);
         font.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 1000), (FallingPresentsGame.HEIGHT / 8) * 3);
