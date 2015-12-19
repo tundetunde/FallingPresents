@@ -18,7 +18,6 @@ public class Menu extends State {
 
     private Texture background;
     private ImageButton playButton,leaderBoardButton,rateButton;
-    TextureAtlas buttonAtlas;
     Stage stage;
     BitmapFont font;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
@@ -31,12 +30,11 @@ public class Menu extends State {
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         background = AssetLoader.background;
         font = new BitmapFont();
-        fontTitle = new BitmapFont(Gdx.files.internal("images/text.fnt"));
+        fontTitle = AssetLoader.font;
         fontTitle.getData().setScale(1.2f, 1.2f);
-        shadow = new BitmapFont(Gdx.files.internal("images/shadow.fnt"));
+        shadow = AssetLoader.shadow;
         shadow.getData().setScale(1.2f, 1.2f);
         stage = new Stage();
-        buttonAtlas = AssetLoader.buttonAtlas;
         initializeButtons();
         stage.addActor(playButton);
         stage.addActor(rateButton);
@@ -110,7 +108,6 @@ public class Menu extends State {
 
     @Override
     public void dispose() {
-        //background.dispose();
         stage.dispose();
     }
 }

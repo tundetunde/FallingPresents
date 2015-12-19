@@ -40,10 +40,7 @@ public class Trolley {
     }
 
     public void move(float x){
-        if(!AssetLoader.getMotionControl())
-            velocity.x = (x / 5);
-        else
-            velocity.x = (x * 3);
+        velocity.x = (x * 3);
     }
 
     public Rectangle getBounds(){

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,25 +20,33 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 public class AssetLoader {
     public static Preferences prefs;
     public static Sound coin;
-    public static Texture background, christmasPresent,trolley;
-    public static TextureAtlas buttonAtlas, arrowButtonAtlas;
-    public static Skin skin,leftSkin, rightSkin, menuSkin;
+    public static BitmapFont font, shadow;
+    public static Texture background,trolley, splash, christmasPresent;
+    public static Texture p1, p2, p3, p4, p5;
+    public static Skin menuSkin, presentSkin;
     public static Label scoreBoard;
-    public static ImageButton.ImageButtonStyle leftarrowButtonStyle, rightArrowButtonStyle, playStyle, rateStyle, scoreStyle;
+    public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle;
 
     public static void load(){
-        background = new Texture("images/bg3.jpg");
         prefs = Gdx.app.getPreferences("Falling Presents");
-        christmasPresent = new Texture("images/present5.png");
-        trolley = new Texture("images/trolley1.png");
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("images/buttons.pack"));
-        arrowButtonAtlas = new TextureAtlas(Gdx.files.internal("arrow/arrowButtons.pack"));
-        skin = new Skin();
-        leftSkin = new Skin();
-        rightSkin = new Skin();
-        skin.addRegions(buttonAtlas);
-        leftSkin.addRegions(arrowButtonAtlas);
-        rightSkin.addRegions(arrowButtonAtlas);
+
+        font = new BitmapFont(Gdx.files.internal("text.fnt"));
+        shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
+        background = new Texture("bg3.jpg");
+        splash = new Texture("splash.png");
+        trolley = new Texture("trolley.png");
+
+        p1 = new Texture("present1.png");
+        p2 = new Texture("present2.png");
+        p3 = new Texture("present3.png");
+        p4 = new Texture("present4.png");
+        p5 = new Texture("present5.png");
+
+       /* presentSkin = new Skin();
+        presentSkin.addRegions(new TextureAtlas(Gdx.files.internal("presents.pack")));
+        christmasPresent = presentSkin.getRegion("present5").getTexture();
+*/
+        christmasPresent = p5;
 
         menuSkin= new Skin();
         menuSkin.addRegions(new TextureAtlas(Gdx.files.internal("menuButtons.pack")));
@@ -51,20 +60,6 @@ public class AssetLoader {
         scoreStyle.imageUp = menuSkin.getDrawable("score");
         scoreStyle.imageDown = menuSkin.getDrawable("scoreR");
 
-        leftarrowButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
-        leftarrowButtonStyle.up = leftSkin.getDrawable("left arrow");  //Set image for not pressed button
-        leftarrowButtonStyle.down = leftSkin.getDrawable("left button clicked");  //Set image for pressed
-        leftarrowButtonStyle.over = leftSkin.getDrawable("left arrow");  //set image for mouse over
-        leftarrowButtonStyle.pressedOffsetX = 1;
-        leftarrowButtonStyle.pressedOffsetY = -1;
-
-        rightArrowButtonStyle = new ImageButton.ImageButtonStyle();  //Instaciate
-        rightArrowButtonStyle.up = leftSkin.getDrawable("right arrow");  //Set image for not pressed button
-        rightArrowButtonStyle.down = leftSkin.getDrawable("right button clicked");  //Set image for pressed
-        rightArrowButtonStyle.over = leftSkin.getDrawable("right arrow");  //set image for mouse over
-        rightArrowButtonStyle.pressedOffsetX = 1;
-        rightArrowButtonStyle.pressedOffsetY = -1;
-
         // Provide default high score of 0
         if (!prefs.contains("highScore")) {
             prefs.putLong("highScore", 0);
@@ -74,10 +69,6 @@ public class AssetLoader {
             prefs.putBoolean("motionControl", true);
         }
         coin = Gdx.audio.newSound(Gdx.files.internal("coin.wav"));
-    }
-
-    public static void disposeChristmasPresent(){
-        christmasPresent.dispose();
     }
 
     public Texture getBackground(){
@@ -93,10 +84,6 @@ public class AssetLoader {
     // Retrieves the current high score
     public static long getHighScore() {
         return prefs.getLong("highScore");
-    }
-
-    public static boolean getMotionControl() {
-        return prefs.getBoolean("motionControl");
     }
 
     // Receives an integer and maps it to the String highScore in prefs

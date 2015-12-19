@@ -21,7 +21,6 @@ public class EndGame extends State {
     private Trolley trolley;
     private BitmapFont font;
     private BitmapFont shadow;
-    TextureAtlas buttonAtlas;
     private ImageButton playButton,leaderBoardButton,rateButton;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
@@ -33,12 +32,11 @@ public class EndGame extends State {
         trolley = new Trolley((int)trolleyPosition.x, (int)trolleyPosition.y);
         background = AssetLoader.background;
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
-        font = new BitmapFont(Gdx.files.internal("images/text.fnt"));
+        font = AssetLoader.font;
         font.getData().setScale(1.2f, 1.2f);
-        shadow = new BitmapFont(Gdx.files.internal("images/shadow.fnt"));
+        shadow = AssetLoader.shadow;
         shadow.getData().setScale(1.2f, 1.2f);
         stage = new Stage();
-        buttonAtlas = AssetLoader.buttonAtlas;
         initializeButtons();
         stage.addActor(playButton);
         stage.addActor(rateButton);

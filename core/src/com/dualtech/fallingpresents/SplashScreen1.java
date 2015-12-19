@@ -16,8 +16,6 @@ import com.badlogic.gdx.utils.Timer;
  */
 public class SplashScreen1 implements Screen {
     private SpriteBatch batch;
-    private BitmapFont font;
-    private BitmapFont shadow;
     private GameStateManager gsm;
     OrthographicCamera camera;
     Texture bgTexture;
@@ -27,18 +25,13 @@ public class SplashScreen1 implements Screen {
     public SplashScreen1(final GameStateManager gsm){
         super();
         camera = new OrthographicCamera();
-        Gdx.gl.glClearColor(1, 1, 0, 1);
+        //Gdx.gl.glClearColor(0, 1, 0, 1);
         this.gsm = gsm;
         batch = new SpriteBatch();
-        bgTexture = new Texture("splash.png");
-        bgTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        bgTexture = AssetLoader.splash;
         textureRegion = new TextureRegion(bgTexture, 0, 0, 512, 301);
         bgSprite = new Sprite(bgTexture);
         //bgSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        font = new BitmapFont(Gdx.files.internal("images/text.fnt"));
-        font.getData().setScale(1.2f, 1.2f);
-        shadow = new BitmapFont(Gdx.files.internal("images/shadow.fnt"));
-        shadow.getData().setScale(1.2f, 1.2f);
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
     }
 
@@ -47,15 +40,12 @@ public class SplashScreen1 implements Screen {
 
     @Override
     public void render(float delta) {
-        //batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        bgSprite.draw(batch);
-        batch.draw( textureRegion, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-
-        //String title = "DUAL DIGITAL";
-        //shadow.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 1000), (FallingPresentsGame.HEIGHT / 8) * 3);
-        //font.draw(batch, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 1000), (FallingPresentsGame.HEIGHT / 8) * 3);
+        batch.draw(bgTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        //bgSprite.draw(batch);
+        //batch.draw( textureRegion, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
         batch.end();
     }
 
