@@ -53,7 +53,7 @@ public class PlayGame extends State {
         handleInput();
         christmasPresent.update(dt);
         if(christmasPresent.isHitGround()){
-            gcm.set(new EndGame(gcm, christmasPresent.getPosition(), trolley.getPosition()));
+            gcm.set(new EndGame(gcm, christmasPresent.getPosition(), trolley.getPosition(), score));
             if (score > AssetLoader.getHighScore()) {
                 AssetLoader.setHighScore(score);
             }

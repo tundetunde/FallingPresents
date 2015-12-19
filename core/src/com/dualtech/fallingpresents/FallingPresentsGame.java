@@ -12,13 +12,24 @@ public class FallingPresentsGame extends Game {
 	public static final int WIDTH = 2400;
 	private GameStateManager gsm;
 	private SpriteBatch batch;
+	public static ActionResolver resolver;
+	public static AdsController adsControl;
 
-	public FallingPresentsGame() {
+	public FallingPresentsGame(ActionResolver resolver, AdsController adsControl) {
 		super();
+		this.resolver = resolver;
+		this.adsControl = adsControl;
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		AssetLoader.dispose();
 	}
 
 	@Override
 	public void create () {
+		//adsControl.hideBannerAd();
 		gsm = new GameStateManager();
 		batch = new SpriteBatch();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -29,7 +40,6 @@ public class FallingPresentsGame extends Game {
 			}
 		}).start();
 		gsm.push(new SplashScreen(gsm));
-		setScreen(new SplashScreen1(gsm));
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

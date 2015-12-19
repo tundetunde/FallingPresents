@@ -48,7 +48,7 @@ public class SplashScreen extends State{
         batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        bgSprite.draw(batch);
+        batch.draw(bgTexture, 0, 0, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         batch.end();}
 
     @Override

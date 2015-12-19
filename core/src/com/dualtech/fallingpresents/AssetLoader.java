@@ -91,4 +91,20 @@ public class AssetLoader {
         prefs.putBoolean("motionControl", val);
         prefs.flush();
     }
+
+    public static void dispose(){
+        background.dispose();
+        trolley.dispose();
+        christmasPresent.dispose();
+        font.dispose();
+        shadow.dispose();
+        p1.dispose();
+        p2.dispose();
+        p3.dispose();
+        p4.dispose();
+        p5.dispose();
+        splash.dispose();
+        menuSkin.dispose();
+        coin.dispose();
+    }
 }

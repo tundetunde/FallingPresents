@@ -29,11 +29,11 @@ public class Trolley {
     }
 
     public void update(float dt){
-        if(position.x > 0 || position.x < ((FallingPresentsGame.WIDTH/2) - trolley.getWidth()))
+        if(position.x > 0 || position.x < ((FallingPresentsGame.WIDTH / 2) - trolley.getWidth()))
             position.add(velocity.x, 0, 0);
         if(position.x < 0)
             position.x = 0;
-        if(position.x > (FallingPresentsGame.WIDTH / 2))
+        if(position.x > (FallingPresentsGame.WIDTH / 2) - trolley.getWidth())
             position.x = FallingPresentsGame.WIDTH / 2 - trolley.getWidth();
         bounds.setPosition(position.x, position.y);
         velocity.scl(1 / dt);
