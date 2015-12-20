@@ -14,6 +14,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.dualtech.fallingpresents.ActionResolver;
+import com.dualtech.fallingpresents.ActivityMethods;
 import com.dualtech.fallingpresents.AdsController;
 import com.dualtech.fallingpresents.FallingPresentsGame;
 import com.google.android.gms.ads.AdRequest;
@@ -22,7 +23,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 
-public class AndroidLauncher extends AndroidApplication implements ActionResolver, AdsController {
+public class AndroidLauncher extends AndroidApplication implements ActionResolver, AdsController, ActivityMethods {
 	GameHelper gameHelper;
 	private final static int REQUEST_CODE_UNUSED = 9002;
 	private static final String BANNER_AD_UNIT_ID = "ca-app-pub-5519384153835422/2811367393";
@@ -53,7 +54,7 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		//initialize(new FallingPresentsGame(this), config);
-		View gameView = initializeForView(new FallingPresentsGame(this, this), config);
+		View gameView = initializeForView(new FallingPresentsGame(this, this, this), config);
 		defineAdLayout(gameView);
 	}
 
@@ -69,6 +70,20 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		layout.addView(bannerAd, params);
 
 		setContentView(layout);
+	}
+
+	public void share(String type, String caption){
+
+		// Create the new Intent using the 'Send' action.
+		Intent share = new Intent(Intent.ACTION_SEND);
+
+		// Set the MIME type
+		share.setType(type);
+		// Add the URI and the caption to the Intent.
+		share.putExtra(Intent.EXTRA_TEXT, caption);
+
+		// Broadcast the Intent.
+		startActivity(Intent.createChooser(share, "Share to"));
 	}
 
 	public void setupAds() {
@@ -185,5 +200,17 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
 		return (ni != null && ni.isConnected());
+	}
+
+	@Override
+	public void shareScore() {
+		String text = "#FALLING PRESENTS\nI'm collecting presents from Santa\n What about you?";
+		share("text/plain", text);
+	}
+
+	@Override
+	public void shareScore(long score) {
+		String text = "#FALLING PRESENTS\nI have collected " + score + " presents\nWhat about you???";
+		share("text/plain", text);
 	}
 }

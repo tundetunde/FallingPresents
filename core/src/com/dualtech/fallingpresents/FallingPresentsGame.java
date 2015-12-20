@@ -14,11 +14,13 @@ public class FallingPresentsGame extends Game {
 	private SpriteBatch batch;
 	public static ActionResolver resolver;
 	public static AdsController adsControl;
+	public static ActivityMethods activityMethods;
 
-	public FallingPresentsGame(ActionResolver resolver, AdsController adsControl) {
+	public FallingPresentsGame(ActionResolver resolver, AdsController adsControl, ActivityMethods activityMethods) {
 		super();
 		this.resolver = resolver;
 		this.adsControl = adsControl;
+		this.activityMethods = activityMethods;
 	}
 
 	@Override

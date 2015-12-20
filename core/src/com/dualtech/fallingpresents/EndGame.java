@@ -86,6 +86,7 @@ public class EndGame extends State {
                 System.out.println("Share Button Clicked");
                 if(FallingPresentsGame.adsControl.isWifiConnected())
                     FallingPresentsGame.adsControl.hideBannerAd();
+                FallingPresentsGame.activityMethods.shareScore(score);
             }
         });
 
