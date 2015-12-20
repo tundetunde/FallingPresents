@@ -25,7 +25,7 @@ public class EndGame extends State {
     private BitmapFont scorefont;
     private BitmapFont shadow;
     private Label.LabelStyle labelStyle;
-    private ImageButton playButton,leaderBoardButton,rateButton, muteButton;
+    private ImageButton playButton,leaderBoardButton,rateButton, muteButton, shareButton;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     long score;
@@ -56,6 +56,7 @@ public class EndGame extends State {
         //scoreBoard.setSize(300, 500);
         stage.addActor(scoreBoard);
         stage.addActor(playButton);
+        stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
         stage.addActor(leaderBoardButton);
@@ -76,9 +77,21 @@ public class EndGame extends State {
             }
         });
 
+        shareButton = new ImageButton(AssetLoader.playStyle);
+        shareButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3);
+        shareButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("Share Button Clicked");
+                if(FallingPresentsGame.adsControl.isWifiConnected())
+                    FallingPresentsGame.adsControl.hideBannerAd();
+            }
+        });
+
         if(AssetLoader.isSoundOn()){muteButton = new ImageButton(AssetLoader.soundStyle);}
         else{muteButton = new ImageButton(AssetLoader.muteStyle);}
-        muteButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3);
+        muteButton.setPosition(cameraWidth - muteButton.getWidth() - 20, cameraHeight - muteButton.getHeight() - 20);
         muteButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {

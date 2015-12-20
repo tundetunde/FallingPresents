@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class Menu extends State {
 
     private Texture background;
-    private ImageButton playButton,leaderBoardButton,rateButton, muteButton;
+    private ImageButton playButton,leaderBoardButton,rateButton, muteButton, shareButton;
     Stage stage;
     BitmapFont font;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
@@ -37,6 +37,7 @@ public class Menu extends State {
         stage = new Stage();
         initializeButtons();
         stage.addActor(playButton);
+        stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
         stage.addActor(leaderBoardButton);
@@ -45,7 +46,7 @@ public class Menu extends State {
 
     public void initializeButtons(){
         playButton = new ImageButton(AssetLoader.playStyle);
-        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3 - 30);
+        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 2);
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
@@ -55,9 +56,19 @@ public class Menu extends State {
             }
         });
 
+        shareButton = new ImageButton(AssetLoader.playStyle);
+        shareButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3 - 30);
+        shareButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("Share Button Clicked");
+            }
+        });
+
         if(AssetLoader.isSoundOn()){muteButton = new ImageButton(AssetLoader.soundStyle);}
         else{muteButton = new ImageButton(AssetLoader.muteStyle);}
-        muteButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 2);
+        muteButton.setPosition(cameraWidth - muteButton.getWidth() - 20, cameraHeight - muteButton.getHeight() - 20);
         //muteButton.setPosition(cameraWidth, cameraHeight);
         muteButton.addListener(new ClickListener() {
             @Override
