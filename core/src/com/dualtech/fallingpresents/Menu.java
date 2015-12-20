@@ -94,7 +94,7 @@ public class Menu extends State {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println("LeaderBoard: Button Clicked");
-                gcm.set(new PlayGame(gcm));
+                FallingPresentsGame.resolver.showScores();
             }
         });
 
@@ -105,7 +105,7 @@ public class Menu extends State {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println("Rate: Button Clicked");
-                Gdx.net.openURI("https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents");
+                Gdx.net.openURI("https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents.android");
             }
         });
     }

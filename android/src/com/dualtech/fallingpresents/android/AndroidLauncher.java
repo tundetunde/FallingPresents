@@ -26,7 +26,7 @@ import com.google.example.games.basegameutils.GameHelper;
 public class AndroidLauncher extends AndroidApplication implements ActionResolver, AdsController, ActivityMethods {
 	GameHelper gameHelper;
 	private final static int REQUEST_CODE_UNUSED = 9002;
-	private static final String BANNER_AD_UNIT_ID = "ca-app-pub-5519384153835422/2811367393";
+	private static final String BANNER_AD_UNIT_ID = "ca-app-pub-6044705985167929/8567710899";
 	private static final String BANNER_TEST = "ca-app-pub-3940256099942544/6300978111";
 	AdView bannerAd;
 
@@ -135,11 +135,7 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 	}
 
 	@Override
-	public void rateGame() {
-		// Replace the end of the URL with the package of your game
-		String str ="https://play.google.com/store/apps/details?id=org.fortheloss.plunderperil";
-		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
-	}
+	public void rateGame() {}
 
 	//Submit score to leaderboard
 	@Override
@@ -204,13 +200,15 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 
 	@Override
 	public void shareScore() {
-		String text = "#FALLING PRESENTS\nI'm collecting presents from Santa\n What about you?";
+		String text = "#FALLING PRESENTS\nI'm collecting presents from Santa\n What about you?\n Download from " +
+				"https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents.android";
 		share("text/plain", text);
 	}
 
 	@Override
 	public void shareScore(long score) {
-		String text = "#FALLING PRESENTS\nI have collected " + score + " presents\nWhat about you???";
+		String text = "#FALLING PRESENTS\nI have collected " + score + " presents\nWhat about you???\n" +
+				"Download from https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents.android";
 		share("text/plain", text);
 	}
 }
