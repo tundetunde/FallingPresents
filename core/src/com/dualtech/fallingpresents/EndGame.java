@@ -44,7 +44,7 @@ public class EndGame extends State {
         font.getData().setScale(1.2f, 1.2f);
         shadow = AssetLoader.shadow;
         shadow.getData().setScale(1.2f, 1.2f);
-        scorefont = new BitmapFont(Gdx.files.internal("text.fnt"));
+        scorefont = AssetLoader.scoreFont;
         scorefont.getData().setScale(0.6f, 0.6f);
         stage = new Stage();
         labelStyle = new Label.LabelStyle(scorefont, Color.WHITE);
@@ -65,7 +65,7 @@ public class EndGame extends State {
 
     public void initializeButtons(){
         playButton = new ImageButton(AssetLoader.playStyle);
-        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 4 - 40);
+        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3);
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
@@ -77,8 +77,8 @@ public class EndGame extends State {
             }
         });
 
-        shareButton = new ImageButton(AssetLoader.playStyle);
-        shareButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3);
+        shareButton = new ImageButton(AssetLoader.shareStyle);
+        shareButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 4 - 40);
         shareButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {

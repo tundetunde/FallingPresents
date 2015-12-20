@@ -1,14 +1,17 @@
 package com.dualtech.fallingpresents;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.beans.Visibility;
 import java.util.Random;
 
 /**
@@ -25,13 +28,16 @@ public class PlayGame extends State {
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     Stage stage = new Stage();
+    private Label.LabelStyle labelStyle;
+    private Label instructions;
+    private BitmapFont scorefont;
 
     protected PlayGame(GameStateManager gcm) {
         super(gcm);
         rand = new Random();
         AssetLoader.setMotionControl(true);
         christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
-        trolley = new Trolley(10, 0);
+        trolley = new Trolley(cameraWidth / 2, 0);
         background = AssetLoader.background;
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         score = 0;
@@ -39,6 +45,13 @@ public class PlayGame extends State {
         font.getData().setScale(1.2f, 1.2f);
         shadow = AssetLoader.shadow;
         shadow.getData().setScale(1.2f, 1.2f);
+        scorefont = AssetLoader.scoreFont;
+        scorefont.getData().setScale(0.6f, 0.6f);
+        labelStyle = new Label.LabelStyle(scorefont, Color.WHITE);
+        String instructionsText = "Tilt the screen left or right to move the trolley\nTouch Screen to Play!";
+        instructions = new Label(instructionsText, labelStyle);
+        instructions.setPosition((cameraWidth / 2) - (instructions.getWidth() / 2), cameraHeight / 2);
+        stage.addActor(instructions);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -50,23 +63,30 @@ public class PlayGame extends State {
 
     @Override
     public void update(float dt) {
-        handleInput();
-        christmasPresent.update(dt);
-        if(christmasPresent.isHitGround()){
-            gcm.set(new EndGame(gcm, christmasPresent.getPosition(), trolley.getPosition(), score));
-            if (score > AssetLoader.getHighScore()) {
-                AssetLoader.setHighScore(score);
+        if(AssetLoader.isFirstTime()){
+            if(Gdx.input.justTouched()){
+                AssetLoader.setFirstTime(false);
+                instructions.setVisible(false);
+            }
+        }else{
+            instructions.setVisible(false);
+            handleInput();
+            christmasPresent.update(dt);
+            if(christmasPresent.isHitGround()){
+                gcm.set(new EndGame(gcm, christmasPresent.getPosition(), trolley.getPosition(), score));
+                if (score > AssetLoader.getHighScore()) {
+                    AssetLoader.setHighScore(score);
+                }
+            }
+
+            trolley.update(dt);
+            if(trolley.isCollide(christmasPresent.getBounds())){
+                if(AssetLoader.isSoundOn())
+                    AssetLoader.coin.play();
+                christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
+                score++;
             }
         }
-
-        trolley.update(dt);
-        if(trolley.isCollide(christmasPresent.getBounds())){
-            if(AssetLoader.isSoundOn())
-                AssetLoader.coin.play();
-            christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
-            score++;
-        }
-
     }
 
     @Override

@@ -20,18 +20,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 public class AssetLoader {
     public static Preferences prefs;
     public static Sound coin;
-    public static BitmapFont font, shadow;
+    public static BitmapFont font, shadow, scoreFont;
     public static Texture background,trolley, splash, christmasPresent;
     public static Texture p1, p2, p3, p4, p5;
     public static Skin menuSkin;
     public static Label scoreBoard;
-    public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle;
+    public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle, shareStyle;
 
     public static void load(){
         prefs = Gdx.app.getPreferences("Falling Presents");
 
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
         shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
+        scoreFont = new BitmapFont(Gdx.files.internal("text.fnt"));
         background = new Texture("bg3.jpg");
         splash = new Texture("splash.png");
         trolley = new Texture("trolley.png");
@@ -59,6 +60,9 @@ public class AssetLoader {
         muteStyle.imageUp = menuSkin.getDrawable("mute");
         soundStyle = new ImageButton.ImageButtonStyle();
         soundStyle.imageUp = menuSkin.getDrawable("sound");
+        shareStyle = new ImageButton.ImageButtonStyle();
+        shareStyle.imageUp = menuSkin.getDrawable("share");
+        shareStyle.imageDown = menuSkin.getDrawable("shareR");
 
         // Provide default high score of 0
         if (!prefs.contains("highScore")) {

@@ -56,7 +56,7 @@ public class Menu extends State {
             }
         });
 
-        shareButton = new ImageButton(AssetLoader.playStyle);
+        shareButton = new ImageButton(AssetLoader.shareStyle);
         shareButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3 - 30);
         shareButton.addListener(new ClickListener() {
             @Override
