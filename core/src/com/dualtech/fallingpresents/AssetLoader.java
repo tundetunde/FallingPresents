@@ -24,7 +24,6 @@ public class AssetLoader {
     public static Texture background,trolley, splash, christmasPresent;
     public static Texture p1, p2, p3, p4, p5;
     public static Skin menuSkin;
-    public static Label scoreBoard;
     public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle, shareStyle;
 
     public static void load(){
@@ -128,6 +127,7 @@ public class AssetLoader {
         christmasPresent.dispose();
         font.dispose();
         shadow.dispose();
+        scoreFont.dispose();
         p1.dispose();
         p2.dispose();
         p3.dispose();

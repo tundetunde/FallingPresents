@@ -70,7 +70,6 @@ public class Menu extends State {
         if(AssetLoader.isSoundOn()){muteButton = new ImageButton(AssetLoader.soundStyle);}
         else{muteButton = new ImageButton(AssetLoader.muteStyle);}
         muteButton.setPosition(cameraWidth - muteButton.getWidth() - 20, cameraHeight - muteButton.getHeight() - 20);
-        //muteButton.setPosition(cameraWidth, cameraHeight);
         muteButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
