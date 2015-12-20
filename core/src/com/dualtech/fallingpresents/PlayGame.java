@@ -28,6 +28,7 @@ public class PlayGame extends State {
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     Stage stage = new Stage();
+    public static int trolleyX, trolleyY;
     private Label.LabelStyle labelStyle;
     private Label instructions;
     private BitmapFont scorefont;
@@ -35,6 +36,7 @@ public class PlayGame extends State {
     protected PlayGame(GameStateManager gcm) {
         super(gcm);
         rand = new Random();
+        FallingPresentsGame.gameState = true;
         AssetLoader.setMotionControl(true);
         christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
         trolley = new Trolley(cameraWidth / 2, 0);
@@ -63,45 +65,66 @@ public class PlayGame extends State {
 
     @Override
     public void update(float dt) {
-        if(AssetLoader.isFirstTime()){
-            if(Gdx.input.justTouched()){
-                AssetLoader.setFirstTime(false);
+        trolleyX = (int)trolley.getPosition().x;
+        trolleyY = (int)trolley.getPosition().y;
+        if(FallingPresentsGame.gameState){
+            if(AssetLoader.isFirstTime()){
+                if(Gdx.input.justTouched()){
+                    AssetLoader.setFirstTime(false);
+                    instructions.setVisible(false);
+                }
+            }else{
                 instructions.setVisible(false);
-            }
-        }else{
-            instructions.setVisible(false);
-            handleInput();
-            christmasPresent.update(dt);
-            if(christmasPresent.isHitGround()){
-                gcm.set(new EndGame(gcm, christmasPresent.getPosition(), trolley.getPosition(), score));
-                if (score > AssetLoader.getHighScore()) {
-                    AssetLoader.setHighScore(score);
+                handleInput();
+                christmasPresent.update(dt);
+                if(christmasPresent.isHitGround()){
+                    gcm.set(new EndGame(gcm, christmasPresent.getPosition(), trolley.getPosition(), score));
+                    if (score > AssetLoader.getHighScore()) {
+                        AssetLoader.setHighScore(score);
+                    }
+                }
+
+                trolley.update(dt);
+                if(trolley.isCollide(christmasPresent.getBounds())){
+                    if(AssetLoader.isSoundOn())
+                        AssetLoader.coin.play();
+                    christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
+                    score++;
                 }
             }
-
-            trolley.update(dt);
-            if(trolley.isCollide(christmasPresent.getBounds())){
-                if(AssetLoader.isSoundOn())
-                    AssetLoader.coin.play();
+        }else{
+            if(Gdx.input.justTouched()){
+                FallingPresentsGame.gameState = true;
                 christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
-                score++;
             }
         }
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.setProjectionMatrix(camera.combined);
-        sb.begin();
-        sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
-        sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
-        sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
-        String scoreString = Long.toString(score);
-        shadow.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
-        font.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
-        sb.end();
-        stage.getViewport().setCamera(camera);
-        stage.draw();
+        if(FallingPresentsGame.gameState){
+            sb.setProjectionMatrix(camera.combined);
+            sb.begin();
+            sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
+            sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
+            sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
+            String scoreString = Long.toString(score);
+            shadow.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
+            font.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
+            sb.end();
+            stage.getViewport().setCamera(camera);
+            stage.draw();
+        }else{
+            sb.begin();
+            sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
+            sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
+            sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
+            String h = "TAP TO CONTINUE";
+            shadow.draw(sb, h, FallingPresentsGame.WIDTH / 4 - h.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
+            font.draw(sb, h, FallingPresentsGame.WIDTH / 4 - h.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
+            sb.end();
+        }
+
     }
 
     @Override

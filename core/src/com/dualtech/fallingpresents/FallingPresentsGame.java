@@ -15,6 +15,19 @@ public class FallingPresentsGame extends Game {
 	public static ActionResolver resolver;
 	public static AdsController adsControl;
 	public static ActivityMethods activityMethods;
+	public static boolean gameState;
+
+	@Override
+	public void pause() {
+		super.pause();
+		gameState = false;
+		gsm.push(new PauseScreen(gsm));
+	}
+
+	@Override
+	public void resume() {
+		super.resume();
+	}
 
 	public FallingPresentsGame(ActionResolver resolver, AdsController adsControl, ActivityMethods activityMethods) {
 		super();
