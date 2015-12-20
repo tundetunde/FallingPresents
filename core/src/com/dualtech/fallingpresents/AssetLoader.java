@@ -23,9 +23,9 @@ public class AssetLoader {
     public static BitmapFont font, shadow;
     public static Texture background,trolley, splash, christmasPresent;
     public static Texture p1, p2, p3, p4, p5;
-    public static Skin menuSkin, presentSkin;
+    public static Skin menuSkin;
     public static Label scoreBoard;
-    public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle;
+    public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle;
 
     public static void load(){
         prefs = Gdx.app.getPreferences("Falling Presents");
@@ -42,10 +42,6 @@ public class AssetLoader {
         p4 = new Texture("present4.png");
         p5 = new Texture("present5.png");
 
-       /* presentSkin = new Skin();
-        presentSkin.addRegions(new TextureAtlas(Gdx.files.internal("presents.pack")));
-        christmasPresent = presentSkin.getRegion("present5").getTexture();
-*/
         christmasPresent = p5;
 
         menuSkin= new Skin();
@@ -59,6 +55,10 @@ public class AssetLoader {
         scoreStyle = new ImageButton.ImageButtonStyle();
         scoreStyle.imageUp = menuSkin.getDrawable("score");
         scoreStyle.imageDown = menuSkin.getDrawable("scoreR");
+        muteStyle = new ImageButton.ImageButtonStyle();
+        muteStyle.imageUp = menuSkin.getDrawable("mute");
+        soundStyle = new ImageButton.ImageButtonStyle();
+        soundStyle.imageUp = menuSkin.getDrawable("sound");
 
         // Provide default high score of 0
         if (!prefs.contains("highScore")) {

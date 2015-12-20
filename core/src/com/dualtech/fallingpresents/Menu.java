@@ -46,7 +46,6 @@ public class Menu extends State {
     public void initializeButtons(){
         playButton = new ImageButton(AssetLoader.playStyle);
         playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3 - 30);
-        //playButton.setSize(100, 30);
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
@@ -56,18 +55,22 @@ public class Menu extends State {
             }
         });
 
-        muteButton = new ImageButton(AssetLoader.playStyle);
+        if(AssetLoader.isSoundOn()){muteButton = new ImageButton(AssetLoader.soundStyle);}
+        else{muteButton = new ImageButton(AssetLoader.muteStyle);}
         muteButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 2);
+        //muteButton.setPosition(cameraWidth, cameraHeight);
         muteButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 if(AssetLoader.isSoundOn()){
                     AssetLoader.toggleSound(false);
+                    muteButton.setStyle(AssetLoader.muteStyle);
                     System.out.println("Mute Clicked: Sound is off");
                 }
                 else{
                     AssetLoader.toggleSound(true);
+                    muteButton.setStyle(AssetLoader.soundStyle);
                     System.out.println("Mute Clicked: Sound is on");
                 }
             }
@@ -75,7 +78,6 @@ public class Menu extends State {
 
         leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
         leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3 - 30);
-        //leaderBoardButton.setSize(100, 30);
         leaderBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
@@ -87,7 +89,6 @@ public class Menu extends State {
 
         rateButton = new ImageButton(AssetLoader.rateStyle);
         rateButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 2);
-        //leaderBoardButton.setSize(100, 30);
         rateButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
@@ -99,11 +100,7 @@ public class Menu extends State {
     }
 
     @Override
-    protected void handleInput() {
-        /*if(Gdx.input.justTouched()){
-            gcm.set(new PlayGame(gcm));
-        }*/
-    }
+    protected void handleInput() {}
 
     @Override
     public void update(float dt) {
