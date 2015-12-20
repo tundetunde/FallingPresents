@@ -25,7 +25,7 @@ public class EndGame extends State {
     private BitmapFont scorefont;
     private BitmapFont shadow;
     private Label.LabelStyle labelStyle;
-    private ImageButton playButton,leaderBoardButton,rateButton;
+    private ImageButton playButton,leaderBoardButton,rateButton, muteButton;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     long score;
@@ -56,6 +56,7 @@ public class EndGame extends State {
         //scoreBoard.setSize(300, 500);
         stage.addActor(scoreBoard);
         stage.addActor(playButton);
+        stage.addActor(muteButton);
         stage.addActor(rateButton);
         stage.addActor(leaderBoardButton);
         Gdx.input.setInputProcessor(stage);
@@ -63,7 +64,7 @@ public class EndGame extends State {
 
     public void initializeButtons(){
         playButton = new ImageButton(AssetLoader.playStyle);
-        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 4);
+        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 4 - 40);
         //playButton.setSize(100, 30);
         playButton.addListener(new ClickListener() {
             @Override
@@ -76,8 +77,26 @@ public class EndGame extends State {
             }
         });
 
+        muteButton = new ImageButton(AssetLoader.playStyle);
+        muteButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3);
+        //playButton.setSize(100, 30);
+        muteButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if(AssetLoader.isSoundOn()){
+                    AssetLoader.toggleSound(false);
+                    System.out.println("Mute Clicked: Sound is off");
+                }
+                else{
+                    AssetLoader.toggleSound(true);
+                    System.out.println("Mute Clicked: Sound is on");
+                }
+            }
+        });
+
         leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
-        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 4);
+        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 4 - 40);
         //leaderBoardButton.setSize(100, 30);
         leaderBoardButton.addListener(new ClickListener() {
             @Override
@@ -90,7 +109,7 @@ public class EndGame extends State {
         });
 
         rateButton = new ImageButton(AssetLoader.rateStyle);
-        rateButton.setPosition(cameraWidth / 2 - (rateButton.getWidth() / 2), cameraHeight / 3);
+        rateButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3);
         //leaderBoardButton.setSize(100, 30);
         rateButton.addListener(new ClickListener() {
             @Override

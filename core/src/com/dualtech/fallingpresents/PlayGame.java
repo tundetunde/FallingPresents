@@ -61,7 +61,8 @@ public class PlayGame extends State {
 
         trolley.update(dt);
         if(trolley.isCollide(christmasPresent.getBounds())){
-            AssetLoader.coin.play();
+            if(AssetLoader.isSoundOn())
+                AssetLoader.coin.play();
             christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
             score++;
         }

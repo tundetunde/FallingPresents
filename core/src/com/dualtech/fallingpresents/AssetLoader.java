@@ -65,8 +65,16 @@ public class AssetLoader {
             prefs.putLong("highScore", 0);
         }
 
+        if (!prefs.contains("firstTime")) {
+            prefs.putBoolean("firstTime", true);
+        }
+
         if (!prefs.contains("motionControl")) {
             prefs.putBoolean("motionControl", true);
+        }
+
+        if (!prefs.contains("soundControl")) {
+            prefs.putBoolean("soundControl", true);
         }
         coin = Gdx.audio.newSound(Gdx.files.internal("coin.wav"));
     }
@@ -84,6 +92,24 @@ public class AssetLoader {
     // Retrieves the current high score
     public static long getHighScore() {
         return prefs.getLong("highScore");
+    }
+
+    public static void setFirstTime(boolean val) {
+        prefs.putBoolean("firstTime", val);
+        prefs.flush();
+    }
+
+    public static boolean isFirstTime() {
+        return prefs.getBoolean("firstTime");
+    }
+
+    public static void toggleSound(boolean val) {
+        prefs.putBoolean("soundControl", val);
+        prefs.flush();
+    }
+
+    public static boolean isSoundOn() {
+        return prefs.getBoolean("soundControl");
     }
 
     // Receives an integer and maps it to the String highScore in prefs
