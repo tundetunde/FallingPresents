@@ -65,7 +65,7 @@ public class EndGame extends State {
 
     public void initializeButtons(){
         playButton = new ImageButton(AssetLoader.playStyle);
-        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3);
+        playButton.setPosition(cameraWidth / 6 * 2, cameraHeight / 3 + 20);
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
@@ -122,7 +122,7 @@ public class EndGame extends State {
         });
 
         rateButton = new ImageButton(AssetLoader.rateStyle);
-        rateButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3);
+        rateButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3 + 20);
         rateButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
