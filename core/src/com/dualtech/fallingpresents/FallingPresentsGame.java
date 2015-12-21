@@ -2,7 +2,6 @@ package com.dualtech.fallingpresents;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.Timer;
@@ -31,9 +30,9 @@ public class FallingPresentsGame extends Game {
 
 	public FallingPresentsGame(ActionResolver resolver, AdsController adsControl, ActivityMethods activityMethods) {
 		super();
-		this.resolver = resolver;
-		this.adsControl = adsControl;
-		this.activityMethods = activityMethods;
+		FallingPresentsGame.resolver = resolver;
+		FallingPresentsGame.adsControl = adsControl;
+		FallingPresentsGame.activityMethods = activityMethods;
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class Menu extends State {
         stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
-        stage.addActor(leaderBoardButton);
+        ///stage.addActor(leaderBoardButton);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -88,7 +88,7 @@ public class Menu extends State {
         });
 
         leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
-        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3 - 30);
+        //leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3 - 30);
         leaderBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {

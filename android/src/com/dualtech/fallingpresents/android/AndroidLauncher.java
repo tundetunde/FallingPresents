@@ -140,7 +140,7 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 	//Submit score to leaderboard
 	@Override
 	public void submitScore(long score) {
-		if (isSignedIn() == true)
+		if (isSignedIn())
 		{
 			Games.Leaderboards.submitScore(gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
 			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
@@ -148,16 +148,23 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		else
 		{
 // Maybe sign in here then redirect to submitting score?
+			signIn();
+			submitScore(score);
+			//Games.Leaderboards.submitScore(gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
+			//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
 		}
 	}
 
 	@Override
 	public void showScores() {
-		if (isSignedIn() == true)
+		if (isSignedIn())
 			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
 		else
 		{
 // Maybe sign in here then redirect to showing scores?
+			signIn();
+			showScores();
+			//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
 		}
 	}
 
@@ -200,14 +207,14 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 
 	@Override
 	public void shareScore() {
-		String text = "#FALLING PRESENTS\nI'm collecting presents from Santa\n What about you?\n Download from " +
-				"https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents.android";
+		String text = "#FallingPresents\nI'm collecting presents from Santa\n What about you?\n " +
+				"Download from https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents.android";
 		share("text/plain", text);
 	}
 
 	@Override
 	public void shareScore(long score) {
-		String text = "#FALLING PRESENTS\nI have collected " + score + " presents\nWhat about you???\n" +
+		String text = "#FallingPresents\nI have collected " + score + " presents\nWhat about you?\n" +
 				"Download from https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents.android";
 		share("text/plain", text);
 	}

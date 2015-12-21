@@ -59,7 +59,7 @@ public class EndGame extends State {
         stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
-        stage.addActor(leaderBoardButton);
+        //stage.addActor(leaderBoardButton);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -84,7 +84,7 @@ public class EndGame extends State {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println("Share Button Clicked");
-                if(FallingPresentsGame.adsControl.isWifiConnected())
+                if (FallingPresentsGame.adsControl.isWifiConnected())
                     FallingPresentsGame.adsControl.hideBannerAd();
                 FallingPresentsGame.activityMethods.shareScore(score);
             }
@@ -111,12 +111,14 @@ public class EndGame extends State {
         });
 
         leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
-        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 4 - 40);
+        //leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 4 - 40);
         leaderBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println("LeaderBoard: Button Clicked");
+                FallingPresentsGame.resolver.isSignedIn();
+                FallingPresentsGame.resolver.signIn();
                 FallingPresentsGame.resolver.submitScore(score);
             }
         });
