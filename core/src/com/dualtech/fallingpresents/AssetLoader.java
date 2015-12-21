@@ -112,7 +112,7 @@ public class AssetLoader {
     }
 
     public static boolean isSoundOn() {
-        return prefs.getBoolean("soundControl");
+        return prefs.getBoolean("soundControl",true);
     }
 
     // Receives an integer and maps it to the String highScore in prefs

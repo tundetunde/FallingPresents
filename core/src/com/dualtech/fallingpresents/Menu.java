@@ -19,17 +19,14 @@ public class Menu extends State {
     private Texture background;
     private ImageButton playButton,leaderBoardButton,rateButton, muteButton, shareButton;
     Stage stage;
-    BitmapFont font;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
-    private BitmapFont fontTitle;
-    private BitmapFont shadow;
+    private BitmapFont fontTitle, shadow;
 
     public Menu(final GameStateManager gcm) {
         super(gcm);
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         background = AssetLoader.background;
-        font = new BitmapFont();
         fontTitle = AssetLoader.font;
         fontTitle.getData().setScale(1.2f, 1.2f);
         shadow = AssetLoader.shadow;
@@ -40,7 +37,7 @@ public class Menu extends State {
         stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
-        ///stage.addActor(leaderBoardButton);
+        //stage.addActor(leaderBoardButton);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -67,8 +64,8 @@ public class Menu extends State {
             }
         });
 
-        if(AssetLoader.isSoundOn()){muteButton = new ImageButton(AssetLoader.soundStyle);}
-        else{muteButton = new ImageButton(AssetLoader.muteStyle);}
+        if(!AssetLoader.isSoundOn()){muteButton = new ImageButton(AssetLoader.muteStyle);}
+        else{muteButton = new ImageButton(AssetLoader.soundStyle);}
         muteButton.setPosition(cameraWidth - muteButton.getWidth() - 20, cameraHeight - muteButton.getHeight() - 20);
         muteButton.addListener(new ClickListener() {
             @Override
@@ -88,7 +85,7 @@ public class Menu extends State {
         });
 
         leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
-        //leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3 - 30);
+        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 3 - 30);
         leaderBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {

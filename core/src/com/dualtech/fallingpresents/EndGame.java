@@ -21,9 +21,7 @@ public class EndGame extends State {
     private Texture background;
     private ChristmasPresent christmasPresent;
     private Trolley trolley;
-    private BitmapFont font;
-    private BitmapFont scorefont;
-    private BitmapFont shadow;
+    private BitmapFont font, scorefont, shadow;
     private Label.LabelStyle labelStyle;
     private ImageButton playButton,leaderBoardButton,rateButton, muteButton, shareButton;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
@@ -111,7 +109,7 @@ public class EndGame extends State {
         });
 
         leaderBoardButton = new ImageButton(AssetLoader.scoreStyle);
-        //leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 4 - 40);
+        leaderBoardButton.setPosition((cameraWidth / 6) * 3 + 60, cameraHeight / 4 - 40);
         leaderBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {

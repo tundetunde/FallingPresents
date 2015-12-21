@@ -17,7 +17,27 @@ android {
     defaultConfig {
         multiDexEnabled true
     }
+    signingConfigs {
+        release {
+            keyAlias = "FallingGameKey"
+        }
+    }
+    buildTypes {
+        release {
+            /*minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+*/
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def file = output.outputFile
+                    def fileName = "digi_falling_presents.apk";
+                    output.outputFile = new File(file.parent, fileName);
+                }
+            }
+        }
+    }
 }
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
