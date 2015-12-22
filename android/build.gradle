@@ -43,6 +43,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':BaseGameUtils1')
     compile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.android.support:multidex:1.0.0'
 }
 
 // called every time gradle gets executed, takes the native dependencies of
