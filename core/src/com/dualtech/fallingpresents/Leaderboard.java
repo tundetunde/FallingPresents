@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
@@ -28,7 +29,8 @@ public class Leaderboard extends State {
         super(gcm);
         //List<HashMap<String, Integer>> hi = new List(AssetLoader.listStyle);
         List.ListStyle y = AssetLoader.listStyle;
-        List<String> x = new List(y);
+        Skin uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        List<String> x = new List<String>(uiSkin);
         x.setPosition(200, 200);
         leaderboardList = FallingPresentsGame.activityMethods.postLeaderboard();
         Array hello = new Array();
