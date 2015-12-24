@@ -439,7 +439,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 						}
 					}
 				}
-		).executeAsync();
+		).executeAndWait();
 
 		return list;
 	}

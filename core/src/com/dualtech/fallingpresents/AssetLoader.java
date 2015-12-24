@@ -27,7 +27,7 @@ public class AssetLoader {
     public static Texture p1, p2, p3, p4, p5;
     public static Skin menuSkin;
     public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle, shareStyle;
-    public static List.ListStyle listStyle;
+    public static Label.LabelStyle labelStyle;
 
     public static void load(){
         prefs = Gdx.app.getPreferences("Falling Presents");
@@ -37,10 +37,10 @@ public class AssetLoader {
         background = new Texture("bg3.jpg");
         splash = new Texture("splash.png");
         trolley = new Texture("trolley.png");
-        listStyle = new List.ListStyle();
-        listStyle.font = new BitmapFont(Gdx.files.internal("text.fnt"));
-        listStyle.fontColorSelected = Color.BLUE;
-        listStyle.fontColorUnselected = Color.WHITE;
+
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = new BitmapFont(Gdx.files.internal("text.fnt"));
+        labelStyle.font.getData().setScale(0.5f, 0.5f);
 
         p1 = new Texture("present1.png");
         p2 = new Texture("present2.png");

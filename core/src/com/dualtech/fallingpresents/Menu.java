@@ -95,6 +95,7 @@ public class Menu extends State {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println("LeaderBoard: Button Clicked");
+                Leaderboard.leaderboardList = FallingPresentsGame.activityMethods.postLeaderboard();
                 gcm.set(new Leaderboard(gcm));
             }
         });
