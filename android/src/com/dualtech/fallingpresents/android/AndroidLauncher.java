@@ -1,11 +1,17 @@
 package com.dualtech.fallingpresents.android;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -17,24 +23,65 @@ import com.dualtech.fallingpresents.ActionResolver;
 import com.dualtech.fallingpresents.ActivityMethods;
 import com.dualtech.fallingpresents.AdsController;
 import com.dualtech.fallingpresents.FallingPresentsGame;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.Profile;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.games.Games;
-import com.google.example.games.basegameutils.GameHelper;
+/*import com.google.android.gms.games.Games;
+import com.google.example.games.basegameutils.GameHelper;*/
 
-public class AndroidLauncher extends AndroidApplication implements ActionResolver, AdsController, ActivityMethods {
-	GameHelper gameHelper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
+
+public class AndroidLauncher extends AndroidApplication implements AdsController, ActivityMethods {
+	//GameHelper gameHelper;
 	private final static int REQUEST_CODE_UNUSED = 9002;
 	private static final String BANNER_AD_UNIT_ID = "ca-app-pub-6044705985167929/8567710899";
 	private static final String BANNER_TEST = "ca-app-pub-3940256099942544/6300978111";
+	private static final String FB_APP_ID = "1000906476636146";
 	AdView bannerAd;
+	LoginButton loginFB;
+	AccessToken accessToken;
+	Profile profile;
+	CallbackManager callbackManager;
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		AppEventsLogger.deactivateApp(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		AppEventsLogger.activateApp(this);
+	}
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Create the GameHelper.
-		gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
+		/*gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
 		gameHelper.enableDebugLog(false);
 		GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener()
 		{
@@ -49,25 +96,43 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 			}
 		};
 		gameHelper.setMaxAutoSignInAttempts(0);
-		gameHelper.setup(gameHelperListener);
+		gameHelper.setup(gameHelperListener);*/
 		setupAds();
-
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		callbackManager = CallbackManager.Factory.create();
+		initializeFBButton(callbackManager);
+		printFBKeyHash();
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		//initialize(new FallingPresentsGame(this), config);
-		View gameView = initializeForView(new FallingPresentsGame(this, this, this), config);
-		defineAdLayout(gameView);
+		View gameView = initializeForView(new FallingPresentsGame(this, this), config);
+		defineAdLayoutMenu(gameView);
+		//defineAdLayout(gameView);
 	}
 
 	public void defineAdLayout(View gameView){
-		RelativeLayout layout = new RelativeLayout(this);
-		layout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
+		RelativeLayout layout1 = new RelativeLayout(this);
+		layout1.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.MATCH_PARENT);
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		layout.addView(bannerAd, params);
+		layout1.addView(bannerAd, params);
+
+		setContentView(layout1);
+	}
+
+	public void defineAdLayoutMenu(View gameView){
+		RelativeLayout layout = new RelativeLayout(this);
+		layout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.MATCH_PARENT);
+
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		layout.addView(loginFB, params);
 
 		setContentView(layout);
 	}
@@ -95,7 +160,73 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		bannerAd.setAdSize(AdSize.SMART_BANNER);
 	}
 
-	//Sign in to Google Play
+	private void printFBKeyHash(){
+		try {
+			PackageInfo info = getPackageManager().getPackageInfo(
+					"com.dualtech.fallingpresents.android",
+					PackageManager.GET_SIGNATURES);
+			for (Signature signature : info.signatures) {
+				MessageDigest md = MessageDigest.getInstance("SHA");
+				md.update(signature.toByteArray());
+				Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+			}
+		} catch (PackageManager.NameNotFoundException e) {
+
+		} catch (NoSuchAlgorithmException e) {
+
+		}
+	}
+
+	private void initializeFBButton(CallbackManager callbackManager){
+		loginFB = new LoginButton(this);
+		loginFB.setReadPermissions("user_friends");
+		// If using in a fragment
+		//loginFB.setFragment(this);
+		// Other app specific specialization
+
+		// Callback registration
+		loginFB.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+			@Override
+			public void onSuccess(LoginResult loginResult) {
+				// App code
+
+				profile = Profile.getCurrentProfile();
+			}
+
+			@Override
+			public void onCancel() {
+				// App code
+			}
+
+			@Override
+			public void onError(FacebookException error) {
+
+			}
+		});
+		ArrayList list = new ArrayList<String>();
+		list.add("publish_actions");
+		LoginManager.getInstance().logInWithPublishPermissions(this, list);
+		LoginManager.getInstance().registerCallback(callbackManager,
+				new FacebookCallback<LoginResult>() {
+					@Override
+					public void onSuccess(LoginResult loginResult) {
+						// App code
+						//loginResult.getAccessToken();
+					}
+
+					@Override
+					public void onCancel() {
+						// App code
+					}
+
+					@Override
+					public void onError(FacebookException exception) {
+						// App code
+					}
+				});
+	}
+
+/*	//Sign in to Google Play
 	@Override
 	public void signIn() {
 		try
@@ -171,7 +302,7 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 	@Override
 	public boolean isSignedIn() {
 		return gameHelper.isSignedIn();
-	}
+	}*/
 
 	@Override
 	public void showBannerAd() {
@@ -217,5 +348,104 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		String text = "#FallingPresents\nI have collected " + score + " presents\nWhat about you?\n" +
 				"Download from https://play.google.com/store/apps/details?id=com.dualtech.fallingpresents.android";
 		share("text/plain", text);
+	}
+
+	@Override
+	public void postFacebookScore(long score) {
+		Bundle params = new Bundle();
+		params.putString("score", Long.toString(score));
+/* make the API call */
+		profile = Profile.getCurrentProfile();
+		new GraphRequest(
+				AccessToken.getCurrentAccessToken(),
+				"/" + profile.getId() + "/scores",
+				params,
+				HttpMethod.POST,
+				new GraphRequest.Callback() {
+					public void onCompleted(GraphResponse response) {
+            /* handle the result */
+						Log.d("Post Score", response.toString());
+					}
+				}
+		).executeAsync();
+	}
+
+	@Override
+	public boolean isLoggedInFB() {
+		AccessToken accessToken = AccessToken.getCurrentAccessToken();
+		return accessToken != null;
+	}
+
+	@Override
+	public void hideFbButton() {
+		//loginFB.setVisibility(View.INVISIBLE);
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				loginFB.setVisibility(View.INVISIBLE);
+			}
+		});
+
+	}
+
+	@Override
+	public void showFbButton() {
+		loginFB.setVisibility(View.VISIBLE);
+		/*runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				loginFB.setVisibility(View.VISIBLE);
+			}
+		});*/
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Integer>> postLeaderboard() {
+/* make the API call */
+		final ArrayList<HashMap<String, Integer>> list = new ArrayList<>();
+		new GraphRequest(
+				AccessToken.getCurrentAccessToken(),
+				"/" + FB_APP_ID + "/scores",
+				null,
+				HttpMethod.GET,
+				new GraphRequest.Callback() {
+					public void onCompleted(GraphResponse response) {
+            /* handle the result */
+						Log.d("LeaderBoard ting", response.toString());
+						JSONObject j = response.getJSONObject();
+						JSONArray jsonArray = null;
+						try {
+							jsonArray = j.getJSONArray("data");
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						for (int i=0; i< jsonArray.length(); i++) {
+							try {
+								String name = "";
+								JSONObject jsonobject = (JSONObject) jsonArray.get(i);
+								JSONObject user = jsonobject.getJSONObject("user");
+								final int score = jsonobject.optInt("score");
+								name = user.optString("name");
+								final String theName = name;
+								list.add(
+										new HashMap<String, Integer>(){{
+											put(theName, score);
+										}}
+								);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+		).executeAsync();
+
+		return list;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 }

@@ -37,8 +37,12 @@ public class Menu extends State {
         stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
-        //stage.addActor(leaderBoardButton);
+        stage.addActor(leaderBoardButton);
         Gdx.input.setInputProcessor(stage);
+        /*if(FallingPresentsGame.activityMethods.isLoggedInFB())
+            FallingPresentsGame.activityMethods.hideFbButton();
+        else*/
+            FallingPresentsGame.activityMethods.showFbButton();
     }
 
     public void initializeButtons(){
@@ -91,7 +95,7 @@ public class Menu extends State {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println("LeaderBoard: Button Clicked");
-                FallingPresentsGame.resolver.showScores();
+                gcm.set(new Leaderboard(gcm));
             }
         });
 

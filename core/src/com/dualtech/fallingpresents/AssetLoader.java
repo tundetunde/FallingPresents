@@ -3,6 +3,7 @@ package com.dualtech.fallingpresents;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -25,16 +27,20 @@ public class AssetLoader {
     public static Texture p1, p2, p3, p4, p5;
     public static Skin menuSkin;
     public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle, shareStyle;
+    public static List.ListStyle listStyle;
 
     public static void load(){
         prefs = Gdx.app.getPreferences("Falling Presents");
-
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
         shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
         scoreFont = new BitmapFont(Gdx.files.internal("text.fnt"));
         background = new Texture("bg3.jpg");
         splash = new Texture("splash.png");
         trolley = new Texture("trolley.png");
+        listStyle = new List.ListStyle();
+        listStyle.font = new BitmapFont(Gdx.files.internal("text.fnt"));
+        listStyle.fontColorSelected = Color.BLUE;
+        listStyle.fontColorUnselected = Color.WHITE;
 
         p1 = new Texture("present1.png");
         p2 = new Texture("present2.png");

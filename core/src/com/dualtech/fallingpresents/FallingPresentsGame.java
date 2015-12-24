@@ -9,18 +9,17 @@ import com.badlogic.gdx.utils.Timer;
 public class FallingPresentsGame extends Game {
 	public static final int HEIGHT = 1440;
 	public static final int WIDTH = 2400;
-	private GameStateManager gsm;
+	private static GameStateManager gsm;
 	private SpriteBatch batch;
 	public static ActionResolver resolver;
 	public static AdsController adsControl;
 	public static ActivityMethods activityMethods;
-	public static boolean gameState;
 
 	@Override
 	public void pause() {
 		super.pause();
-		gameState = false;
-		gsm.push(new PauseScreen(gsm));
+		if(isGameOn())
+			gsm.push(new PauseScreen(gsm));
 	}
 
 	@Override
@@ -28,11 +27,11 @@ public class FallingPresentsGame extends Game {
 		super.resume();
 	}
 
-	public FallingPresentsGame(ActionResolver resolver, AdsController adsControl, ActivityMethods activityMethods) {
+	public FallingPresentsGame(AdsController adsControl, ActivityMethods activityMethods) {
 		super();
-		FallingPresentsGame.resolver = resolver;
-		FallingPresentsGame.adsControl = adsControl;
+		//FallingPresentsGame.resolver = resolver;
 		FallingPresentsGame.activityMethods = activityMethods;
+		FallingPresentsGame.adsControl = adsControl;
 	}
 
 	@Override
@@ -43,6 +42,7 @@ public class FallingPresentsGame extends Game {
 
 	@Override
 	public void create () {
+		//FallingPresentsGame.activityMethods.hideFbButton();
 		//adsControl.hideBannerAd();
 		gsm = new GameStateManager();
 		batch = new SpriteBatch();
@@ -65,6 +65,12 @@ public class FallingPresentsGame extends Game {
 				}, 3);
 			}
 		}).start();
+	}
+
+	public static boolean isGameOn(){
+		if(gsm.top() instanceof PlayGame)
+			return true;
+		return false;
 	}
 
 	@Override

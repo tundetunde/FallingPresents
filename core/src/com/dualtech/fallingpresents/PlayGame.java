@@ -36,7 +36,6 @@ public class PlayGame extends State {
     protected PlayGame(GameStateManager gcm) {
         super(gcm);
         rand = new Random();
-        FallingPresentsGame.gameState = true;
         AssetLoader.setMotionControl(true);
         christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
         trolley = new Trolley(cameraWidth / 2, 0);
@@ -54,6 +53,7 @@ public class PlayGame extends State {
         instructions = new Label(instructionsText, labelStyle);
         instructions.setPosition((cameraWidth / 2) - (instructions.getWidth() / 2), cameraHeight / 2);
         stage.addActor(instructions);
+        FallingPresentsGame.activityMethods.hideFbButton();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -67,7 +67,7 @@ public class PlayGame extends State {
     public void update(float dt) {
         trolleyX = (int)trolley.getPosition().x;
         trolleyY = (int)trolley.getPosition().y;
-        if(FallingPresentsGame.gameState){
+        if(FallingPresentsGame.isGameOn()){
             if(AssetLoader.isFirstTime()){
                 if(Gdx.input.justTouched()){
                     AssetLoader.setFirstTime(false);
@@ -80,6 +80,12 @@ public class PlayGame extends State {
                 if(christmasPresent.isHitGround()){
                     if (score > AssetLoader.getHighScore()) {
                         AssetLoader.setHighScore(score);
+                        if(FallingPresentsGame.activityMethods.isLoggedInFB()){
+                            FallingPresentsGame.activityMethods.postFacebookScore(score);
+                            FallingPresentsGame.activityMethods.postLeaderboard();
+                        }
+                        /*FallingPresentsGame.activityMethods.postFacebookScore(score);
+                        FallingPresentsGame.activityMethods.postLeaderboard();*/
                     }
                     gcm.set(new EndGame(gcm, christmasPresent.getPosition(), trolley.getPosition(), score));
                 }
@@ -94,7 +100,6 @@ public class PlayGame extends State {
             }
         }else{
             if(Gdx.input.justTouched()){
-                FallingPresentsGame.gameState = true;
                 christmasPresent = new ChristmasPresent(rand.nextInt(cameraWidth), cameraHeight);
             }
         }
@@ -102,7 +107,7 @@ public class PlayGame extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-        if(FallingPresentsGame.gameState){
+        if(FallingPresentsGame.isGameOn()){
             sb.setProjectionMatrix(camera.combined);
             sb.begin();
             sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);

@@ -28,13 +28,12 @@ public class SplashScreen extends State{
         bgSprite = new Sprite(bgTexture);
         bgSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
-
-        Timer.schedule(new Timer.Task() {
+        /*Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 gcm.push(new Menu(gcm));
             }
-        }, 3);
+        }, 3);*/
     }
 
     @Override

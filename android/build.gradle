@@ -14,9 +14,6 @@ android {
 
         instrumentTest.setRoot('tests')
     }
-    defaultConfig {
-        multiDexEnabled true
-    }
     signingConfigs {
         release {
             keyAlias = "FallingGameKey"
@@ -41,9 +38,8 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':BaseGameUtils1')
-    compile 'com.google.android.gms:play-services:8.3.0'
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile 'com.google.android.gms:play-services-ads:8.3.0'
 }
 
 // called every time gradle gets executed, takes the native dependencies of
@@ -124,8 +120,7 @@ eclipse {
 
 // sets up the Android Idea project, using the old Ant based build.
 idea {
-    module {
-        sourceDirs+= file ("src");scopes = [ COMPILE: [plus: [project.configurations.compile]]]        
+        module { sourceDirs += file("src"); scopes = [COMPILE: [plus: [project.configurations.compile]]]        
 
         iml {
             withXml {
@@ -134,7 +129,7 @@ idea {
                 builder.current = node;
                 builder.component(name: "FacetManager") {
                     facet(type: "android", name: "Android") {
-                        configuration { option(name:"UPDATE_PROPERTY_FILES" , value:"true")
+                            configuration { option(name: "UPDATE_PROPERTY_FILES" , value:"true")
                         }
                     }
                 }
