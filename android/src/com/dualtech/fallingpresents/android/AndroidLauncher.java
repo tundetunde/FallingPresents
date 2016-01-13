@@ -77,6 +77,14 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 		AppEventsLogger.activateApp(this);
 	}
 
+	/*@Override
+	protected void onStop()
+	{
+		unregisterReceiver(callbackManager);
+		this.unregisterReceiver(this);
+		super.onStop();
+	}*/
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -442,6 +450,13 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 		).executeAndWait();
 
 		return list;
+	}
+
+	@Override
+	public void startLeaderboardActivity() {
+		Leaderboard.leaderboardArray = postLeaderboard();
+		Intent i = new Intent(this, Leaderboard.class);
+		startActivity(i);
 	}
 
 	@Override
