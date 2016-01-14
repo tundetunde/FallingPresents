@@ -88,30 +88,13 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Create the GameHelper.
-		/*gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
-		gameHelper.enableDebugLog(false);
-		GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener()
-		{
-			@Override
-			public void onSignInSucceeded()
-			{
-			}
 
-			@Override
-			public void onSignInFailed()
-			{
-			}
-		};
-		gameHelper.setMaxAutoSignInAttempts(0);
-		gameHelper.setup(gameHelperListener);*/
 		setupAds();
 		FacebookSdk.sdkInitialize(getApplicationContext());
 		callbackManager = CallbackManager.Factory.create();
 		initializeFBButton(callbackManager);
 		printFBKeyHash();
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		//initialize(new FallingPresentsGame(this), config);
 		View gameView = initializeForView(new FallingPresentsGame(this, this), config);
 		defineAdLayoutMenu(gameView);
 		//defineAdLayout(gameView);
@@ -234,84 +217,6 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 					}
 				});
 	}
-
-/*	//Sign in to Google Play
-	@Override
-	public void signIn() {
-		try
-		{
-			runOnUiThread(new Runnable()
-			{
-				//@Override
-				public void run()
-				{
-					gameHelper.beginUserInitiatedSignIn();
-				}
-			});
-		}
-		catch (Exception e)
-		{
-			Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
-		}
-	}
-
-	@Override
-	public void signOut() {
-		try
-		{
-			runOnUiThread(new Runnable()
-			{
-				//@Override
-				public void run()
-				{
-					gameHelper.signOut();
-				}
-			});
-		}
-		catch (Exception e)
-		{
-			Gdx.app.log("MainActivity", "Log out failed: " + e.getMessage() + ".");
-		}
-	}
-
-	@Override
-	public void rateGame() {}
-
-	//Submit score to leaderboard
-	@Override
-	public void submitScore(long score) {
-		if (isSignedIn())
-		{
-			Games.Leaderboards.submitScore(gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
-			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		}
-		else
-		{
-// Maybe sign in here then redirect to submitting score?
-			signIn();
-			submitScore(score);
-			//Games.Leaderboards.submitScore(gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
-			//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		}
-	}
-
-	@Override
-	public void showScores() {
-		if (isSignedIn())
-			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		else
-		{
-// Maybe sign in here then redirect to showing scores?
-			signIn();
-			showScores();
-			//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		}
-	}
-
-	@Override
-	public boolean isSignedIn() {
-		return gameHelper.isSignedIn();
-	}*/
 
 	@Override
 	public void showBannerAd() {
