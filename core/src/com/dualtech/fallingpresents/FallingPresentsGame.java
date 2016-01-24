@@ -1,17 +1,18 @@
 package com.dualtech.fallingpresents;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.Timer;
 
-public class FallingPresentsGame extends Game {
+public class FallingPresentsGame extends ApplicationAdapter {
 	public static final int HEIGHT = 1440;
 	public static final int WIDTH = 2400;
 	private static GameStateManager gsm;
 	private SpriteBatch batch;
-	public static ActionResolver resolver;
+	//public static ActionResolver resolver;
 	public static AdsController adsControl;
 	public static ActivityMethods activityMethods;
 
@@ -47,6 +48,7 @@ public class FallingPresentsGame extends Game {
 		gsm = new GameStateManager();
 		batch = new SpriteBatch();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
+		activityMethods.hideFbButton();
 		/*new Thread(new Runnable() {
 			@Override
 			public void run() {

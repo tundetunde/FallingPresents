@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -29,6 +30,7 @@ public class EndGame extends State {
     long score;
     Stage stage;
     private Label scoreBoard;
+    boolean isLeaderboardOn;
 
     protected EndGame(GameStateManager gcm, Vector3 presentPosition, Vector3 trolleyPosition, long score) {
         super(gcm);
@@ -57,8 +59,15 @@ public class EndGame extends State {
         stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
-        //stage.addActor(leaderBoardButton);
+        if(FallingPresentsGame.activityMethods.isLoggedInFB()){
+            stage.addActor(leaderBoardButton);
+            isLeaderboardOn = true;
+        }else{
+            isLeaderboardOn = false;
+        }
         Gdx.input.setInputProcessor(stage);
+        FallingPresentsGame.activityMethods.showFbButton();
+        FallingPresentsGame.adsControl.hideBannerAd();
     }
 
     public void initializeButtons(){
@@ -139,6 +148,17 @@ public class EndGame extends State {
 
     @Override
     public void update(float dt) {
+        if(FallingPresentsGame.activityMethods.isLoggedInFB()){
+            if(!isLeaderboardOn){
+                stage.addActor(leaderBoardButton);
+                isLeaderboardOn = true;
+            }
+        }else {
+            if(isLeaderboardOn){
+                leaderBoardButton.remove();
+                isLeaderboardOn = false;
+            }
+        }
         stage.act(dt);
     }
 

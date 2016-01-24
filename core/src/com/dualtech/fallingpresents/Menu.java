@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,6 +23,7 @@ public class Menu extends State {
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     private BitmapFont fontTitle, shadow;
+    boolean isLeaderboardOn;
 
     public Menu(final GameStateManager gcm) {
         super(gcm);
@@ -37,12 +39,15 @@ public class Menu extends State {
         stage.addActor(shareButton);
         stage.addActor(muteButton);
         stage.addActor(rateButton);
-        stage.addActor(leaderBoardButton);
+        if(FallingPresentsGame.activityMethods.isLoggedInFB()){
+            stage.addActor(leaderBoardButton);
+            isLeaderboardOn = true;
+        }else{
+            isLeaderboardOn = false;
+        }
         Gdx.input.setInputProcessor(stage);
-        /*if(FallingPresentsGame.activityMethods.isLoggedInFB())
-            FallingPresentsGame.activityMethods.hideFbButton();
-        else*/
-            FallingPresentsGame.activityMethods.showFbButton();
+        FallingPresentsGame.activityMethods.showFbButton();
+        FallingPresentsGame.adsControl.hideBannerAd();
     }
 
     public void initializeButtons(){
@@ -120,6 +125,17 @@ public class Menu extends State {
     @Override
     public void update(float dt) {
         handleInput();
+        if(FallingPresentsGame.activityMethods.isLoggedInFB()){
+            if(!isLeaderboardOn){
+                stage.addActor(leaderBoardButton);
+                isLeaderboardOn = true;
+            }
+        }else {
+            if(isLeaderboardOn){
+                leaderBoardButton.remove();
+                isLeaderboardOn = false;
+            }
+        }
         stage.act(dt);
     }
 
