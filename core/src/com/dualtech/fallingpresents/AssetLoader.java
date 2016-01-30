@@ -16,8 +16,8 @@ public class AssetLoader {
     public static Preferences prefs;
     public static Sound coin;
     public static BitmapFont font, scoreFont, instructFont;
-    public static Texture background,trolley, splash, christmasPresent;
-    public static Texture p1, p2, p3, p4, p5;
+    public static Texture background,trolley, splash;
+    public static Texture p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
     public static Skin menuSkin;
     public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle, shareStyle;
 
@@ -35,8 +35,11 @@ public class AssetLoader {
         p3 = new Texture("item3.png");
         p4 = new Texture("item4.png");
         p5 = new Texture("item5.png");
-
-        christmasPresent = p5;
+        p6 = new Texture("item6.png");
+        p7 = new Texture("item7.png");
+        p8 = new Texture("item8.png");
+        p9 = new Texture("item9.png");
+        p10 = new Texture("item10.png");
 
         menuSkin= new Skin();
         menuSkin.addRegions(new TextureAtlas(Gdx.files.internal("menuButtons.pack")));
@@ -118,7 +121,6 @@ public class AssetLoader {
     public static void dispose(){
         background.dispose();
         trolley.dispose();
-        christmasPresent.dispose();
         font.dispose();
         scoreFont.dispose();
         p1.dispose();

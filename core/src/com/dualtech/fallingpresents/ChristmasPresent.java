@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.Random;
+
 /**
  * Created by tunde_000 on 12/12/2015.
  */
@@ -16,7 +18,18 @@ public class ChristmasPresent {
     private Rectangle bounds;
 
     public ChristmasPresent(int x, int y){
-        christmasPresent = AssetLoader.christmasPresent;
+        int hnum = new Random().nextInt(10)+1;
+        if(hnum==1){christmasPresent=AssetLoader.p1;}
+        else if(hnum==2){christmasPresent=AssetLoader.p2;}
+        else if(hnum==3){christmasPresent=AssetLoader.p3;}
+        else if(hnum==4){christmasPresent=AssetLoader.p4;}
+        else if(hnum==5){christmasPresent=AssetLoader.p5;}
+        else if(hnum==6){christmasPresent=AssetLoader.p6;}
+        else if(hnum==7){christmasPresent=AssetLoader.p7;}
+        else if(hnum==8){christmasPresent=AssetLoader.p8;}
+        else if(hnum==9){christmasPresent=AssetLoader.p9;}
+        else {christmasPresent=AssetLoader.p10;}
+
         if(x < FallingPresentsGame.WIDTH / 2 - christmasPresent.getWidth())
             position = new Vector3(x, y, 0);
         else{
