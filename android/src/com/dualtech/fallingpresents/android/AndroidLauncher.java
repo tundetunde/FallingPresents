@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.appodeal.ads.Appodeal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -110,6 +111,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
 		L1.addView(gameView, params);
 		initAd();
+		initializeAppodeal();
 		gameView.bringToFront();
 		adView.bringToFront();
 		//loginFB.bringToFront();
@@ -120,6 +122,14 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 		adView = (AdView) findViewById(R.id.adView4);
 		AdRequest adRequest = new AdRequest.Builder().build();
 		adView.loadAd(adRequest);
+	}
+
+	private void initializeAppodeal(){
+		String appKey = "93ab8c01d9c1f8ef98d534fec4465d746bbf6f675be62c7a";
+		Appodeal.initialize(this, appKey, Appodeal.BANNER);
+		Appodeal.setTesting(true);
+		Appodeal.setLogging(true);
+		//Appodeal.show(AndroidLauncher.this, Appodeal.BANNER);
 	}
 
 	public void share(String type, String caption){
@@ -209,9 +219,10 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 			@Override
 			public void run() {
 				adView.setVisibility(View.VISIBLE);
-				AdRequest.Builder builder = new AdRequest.Builder();
+				/*AdRequest.Builder builder = new AdRequest.Builder();
 				AdRequest ad = builder.build();
-				adView.loadAd(ad);
+				adView.loadAd(ad);*/
+				Appodeal.show(AndroidLauncher.this, Appodeal.BANNER);
 			}
 		});
 	}
@@ -222,6 +233,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 			@Override
 			public void run() {
 				adView.setVisibility(View.INVISIBLE);
+				Appodeal.hide(AndroidLauncher.this, Appodeal.BANNER);
 			}
 		});
 	}

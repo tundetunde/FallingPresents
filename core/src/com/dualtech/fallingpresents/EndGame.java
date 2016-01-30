@@ -34,8 +34,8 @@ public class EndGame extends State {
 
     protected EndGame(GameStateManager gcm, Vector3 presentPosition, Vector3 trolleyPosition, long score) {
         super(gcm);
-        if(FallingPresentsGame.adsControl.isWifiConnected())
-            FallingPresentsGame.adsControl.showBannerAd();
+        //if(FallingPresentsGame.adsControl.isWifiConnected())
+        FallingPresentsGame.adsControl.showBannerAd();
         christmasPresent = new ChristmasPresent((int)presentPosition.x, (int)presentPosition.y);
         trolley = new Trolley((int)trolleyPosition.x, (int)trolleyPosition.y);
         background = AssetLoader.background;
@@ -67,7 +67,7 @@ public class EndGame extends State {
         }
         Gdx.input.setInputProcessor(stage);
         FallingPresentsGame.activityMethods.showFbButton();
-        FallingPresentsGame.adsControl.hideBannerAd();
+        //FallingPresentsGame.adsControl.hideBannerAd();
     }
 
     public void initializeButtons(){

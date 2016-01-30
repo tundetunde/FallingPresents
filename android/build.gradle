@@ -33,13 +33,32 @@ android {
             }
         }
     }
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v4'
+    }
+    defaultConfig {
+        multiDexEnabled true
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    provided fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.google.android.gms:play-services-ads:8.3.0'
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/android-support-v4-22.2.1.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/android-support-v7-recyclerview-22.2.1.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/applovin-6.1.5.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/appodeal-1.14.2.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/chartboost-6.2.0.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/flurry-analytics-6.2.0.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/inmobi-5.2.0.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/my-target-4.2.0.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/unity-ads-1.4.7.jar')
+    compile files('C:/Users/tunde_000/Documents/Android Game Dev/Appodeal_Android_1.14.2/yandex-metrica-2.30.jar')
 }
 
 // called every time gradle gets executed, takes the native dependencies of
