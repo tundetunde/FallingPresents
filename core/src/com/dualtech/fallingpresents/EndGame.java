@@ -43,14 +43,14 @@ public class EndGame extends State {
         font = AssetLoader.font;
         font.getData().setScale(1.2f, 1.2f);;
         scorefont = AssetLoader.scoreFont;
-        scorefont.getData().setScale(0.6f, 0.6f);
+        scorefont.getData().setScale(0.8f, 0.8f);
         stage = new Stage();
         labelStyle = new Label.LabelStyle(scorefont, Color.WHITE);
         initializeButtons();
         this.score = score;
         String scoreString = "Score: " + score + "\nHigh Score: " + AssetLoader.getHighScore();
         scoreBoard = new Label(scoreString, labelStyle);
-        scoreBoard.setPosition(((cameraWidth / 10) - 80), cameraHeight / 5 * 3);
+        scoreBoard.setPosition(((cameraWidth / 10) - 80), cameraHeight / 2 - 40);
         //scoreBoard.setSize(300, 500);
         stage.addActor(scoreBoard);
         stage.addActor(playButton);
