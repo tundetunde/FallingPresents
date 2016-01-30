@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class EndGame extends State {
     private Texture background;
-    private ChristmasPresent christmasPresent;
     private Trolley trolley;
     private BitmapFont font, scorefont;
     private Label.LabelStyle labelStyle;
@@ -34,9 +33,7 @@ public class EndGame extends State {
 
     protected EndGame(GameStateManager gcm, Vector3 presentPosition, Vector3 trolleyPosition, long score) {
         super(gcm);
-        //if(FallingPresentsGame.adsControl.isWifiConnected())
         FallingPresentsGame.adsControl.showBannerAd();
-        christmasPresent = new ChristmasPresent((int)presentPosition.x, (int)presentPosition.y);
         trolley = new Trolley((int)trolleyPosition.x, (int)trolleyPosition.y);
         background = AssetLoader.background;
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
@@ -165,7 +162,6 @@ public class EndGame extends State {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
-        sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
         sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
         String over = "Game Over";
         font.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 27), (cameraHeight / 10) * 8);
