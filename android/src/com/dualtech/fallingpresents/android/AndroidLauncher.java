@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -47,6 +49,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -314,6 +318,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 	public ArrayList<HashMap<String, Integer>> postLeaderboard() {
 /* make the API call */
 		final ArrayList<HashMap<String, Integer>> list = new ArrayList<>();
+		Leaderboard.profilePics = new ArrayList<>();
 		new GraphRequest(
 				AccessToken.getCurrentAccessToken(),
 				"/" + FB_APP_ID + "/scores",
@@ -336,6 +341,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 								JSONObject jsonobject = (JSONObject) jsonArray.get(i);
 								JSONObject user = jsonobject.getJSONObject("user");
 								final int score = jsonobject.optInt("score");
+								String id = user.optString("id");
 								name = user.optString("name");
 								final String theName = name;
 								list.add(
@@ -343,7 +349,10 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 											put(theName, score);
 										}}
 								);
+								Leaderboard.profilePics.add(getProfilePics(id));
 							} catch (JSONException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
@@ -365,5 +374,11 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		callbackManager.onActivityResult(requestCode, resultCode, data);
+	}
+
+	public Bitmap getProfilePics(String id) throws IOException {
+		URL url = new URL("https://graph.facebook.com/" + id + "/picture?type=small");
+		Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+		return image;
 	}
 }

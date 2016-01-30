@@ -7,6 +7,7 @@ package com.dualtech.fallingpresents.android;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class Leaderboard extends ListActivity {
     public static ArrayList<HashMap<String, Integer>> leaderboardArray;
     static ContactAdapter adapter;
     static ArrayList<Contact> fb_contact;
+    public static ArrayList<Bitmap> profilePics;
     Button goBack;
 
     @Override
@@ -100,6 +102,8 @@ public class Leaderboard extends ListActivity {
             Contact p = getItem(position);
             holder.fh_user.setText(p.name);
             holder.fh_score.setText(p.score);
+            Bitmap b = profilePics.get(position);
+            holder.fh_displayPic.setImageBitmap(b);
             return cv;
         }
 
