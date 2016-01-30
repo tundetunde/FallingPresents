@@ -6,12 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import java.beans.Visibility;
 import java.util.Random;
 
 /**
@@ -24,7 +20,6 @@ public class PlayGame extends State {
     private Random rand;
     private static long score;
     private BitmapFont font;
-    private BitmapFont shadow;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
     Stage stage = new Stage();
@@ -43,12 +38,9 @@ public class PlayGame extends State {
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         score = 0;
         font = AssetLoader.font;
-        font.getData().setScale(1.2f, 1.2f);
-        shadow = AssetLoader.shadow;
-        shadow.getData().setScale(1.2f, 1.2f);
         scorefont = AssetLoader.scoreFont;
         scorefont.getData().setScale(0.6f, 0.6f);
-        labelStyle = new Label.LabelStyle(scorefont, Color.WHITE);
+        labelStyle = new Label.LabelStyle(AssetLoader.instructFont, Color.WHITE);
         String instructionsText = "Tilt the screen left or right to move the trolley\nTouch Screen to Play!";
         instructions = new Label(instructionsText, labelStyle);
         instructions.setPosition((cameraWidth / 2) - (instructions.getWidth() / 2), cameraHeight / 2);
@@ -114,7 +106,6 @@ public class PlayGame extends State {
             sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
             sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
             String scoreString = Long.toString(score);
-            shadow.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
             font.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
             sb.end();
             stage.getViewport().setCamera(camera);
@@ -125,7 +116,6 @@ public class PlayGame extends State {
             sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
             sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
             String h = "TAP TO CONTINUE";
-            shadow.draw(sb, h, FallingPresentsGame.WIDTH / 4 - h.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
             font.draw(sb, h, FallingPresentsGame.WIDTH / 4 - h.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
             sb.end();
         }

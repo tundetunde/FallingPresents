@@ -18,7 +18,6 @@ public class PauseScreen extends State {
     private Trolley trolley;
     private BitmapFont font;
     private BitmapFont scorefont;
-    private BitmapFont shadow;
     private Label.LabelStyle labelStyle;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
@@ -34,9 +33,6 @@ public class PauseScreen extends State {
         background = AssetLoader.background;
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         font = AssetLoader.font;
-        font.getData().setScale(1.2f, 1.2f);
-        shadow = AssetLoader.shadow;
-        shadow.getData().setScale(1.2f, 1.2f);
         scorefont = AssetLoader.scoreFont;
         scorefont.getData().setScale(0.6f, 0.6f);
         stage = new Stage();
@@ -63,7 +59,6 @@ public class PauseScreen extends State {
         sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
         String scoreString = "PAUSED";
-        shadow.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
         font.draw(sb, scoreString, FallingPresentsGame.WIDTH / 4 - scoreString.length() * 10, (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
         stage.getViewport().setCamera(camera);

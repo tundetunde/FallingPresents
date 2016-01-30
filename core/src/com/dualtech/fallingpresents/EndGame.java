@@ -22,7 +22,7 @@ public class EndGame extends State {
     private Texture background;
     private ChristmasPresent christmasPresent;
     private Trolley trolley;
-    private BitmapFont font, scorefont, shadow;
+    private BitmapFont font, scorefont;
     private Label.LabelStyle labelStyle;
     private ImageButton playButton,leaderBoardButton,rateButton, muteButton, shareButton;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
@@ -41,9 +41,7 @@ public class EndGame extends State {
         background = AssetLoader.background;
         camera.setToOrtho(false, FallingPresentsGame.WIDTH / 2, FallingPresentsGame.HEIGHT / 2);
         font = AssetLoader.font;
-        font.getData().setScale(1.2f, 1.2f);
-        shadow = AssetLoader.shadow;
-        shadow.getData().setScale(1.2f, 1.2f);
+        font.getData().setScale(1.2f, 1.2f);;
         scorefont = AssetLoader.scoreFont;
         scorefont.getData().setScale(0.6f, 0.6f);
         stage = new Stage();
@@ -169,8 +167,7 @@ public class EndGame extends State {
         sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         sb.draw(christmasPresent.getChristmasPresent(), christmasPresent.getPosition().x, christmasPresent.getPosition().y);
         sb.draw(trolley.getTrolley(), trolley.getPosition().x, trolley.getPosition().y);
-        String over = "GAME OVER";
-        shadow.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 27), (cameraHeight / 10) * 8);
+        String over = "Game Over";
         font.draw(sb, over, (FallingPresentsGame.WIDTH / 4) - (over.length() * 27), (cameraHeight / 10) * 8);
         sb.end();
         stage.getViewport().setCamera(camera);

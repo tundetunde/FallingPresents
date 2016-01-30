@@ -1,0 +1,75 @@
+
+fallItem.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+item1
+  rotate: false
+  xy: 1, 1
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1
+item2
+  rotate: false
+  xy: 88, 1
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1
+item3
+  rotate: false
+  xy: 175, 1
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1
+item5
+  rotate: false
+  xy: 262, 1
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1
+item6
+  rotate: false
+  xy: 349, 1
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1
+item8
+  rotate: false
+  xy: 436, 1
+  size: 85, 75
+  orig: 85, 75
+  offset: 0, 0
+  index: -1
+item4
+  rotate: false
+  xy: 523, 2
+  size: 85, 74
+  orig: 85, 74
+  offset: 0, 0
+  index: -1
+item9
+  rotate: false
+  xy: 610, 1
+  size: 77, 75
+  orig: 77, 75
+  offset: 0, 0
+  index: -1
+item10
+  rotate: false
+  xy: 689, 6
+  size: 77, 70
+  orig: 77, 70
+  offset: 0, 0
+  index: -1
+item7
+  rotate: false
+  xy: 768, 17
+  size: 59, 59
+  orig: 59, 59
+  offset: 0, 0
+  index: -1

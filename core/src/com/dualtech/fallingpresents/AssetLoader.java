@@ -3,18 +3,11 @@ package com.dualtech.fallingpresents;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
  * Created by tunde_000 on 13/12/2015.
@@ -22,25 +15,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 public class AssetLoader {
     public static Preferences prefs;
     public static Sound coin;
-    public static BitmapFont font, shadow, scoreFont;
+    public static BitmapFont font, scoreFont, instructFont;
     public static Texture background,trolley, splash, christmasPresent;
     public static Texture p1, p2, p3, p4, p5;
     public static Skin menuSkin;
     public static ImageButton.ImageButtonStyle playStyle, rateStyle, scoreStyle, muteStyle, soundStyle, shareStyle;
-    public static Label.LabelStyle labelStyle;
 
     public static void load(){
         prefs = Gdx.app.getPreferences("Falling Presents");
-        font = new BitmapFont(Gdx.files.internal("text.fnt"));
-        shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
-        scoreFont = new BitmapFont(Gdx.files.internal("text.fnt"));
+        font = new BitmapFont(Gdx.files.internal("menu_font.fnt"));
+        scoreFont = new BitmapFont(Gdx.files.internal("hscore_font.fnt"));
+        instructFont = new BitmapFont(Gdx.files.internal("instruct_font.fnt"));
         background = new Texture("valbg.png");
         splash = new Texture("splash.png");
         trolley = new Texture("trolley.png");
-
-        labelStyle = new Label.LabelStyle();
-        labelStyle.font = new BitmapFont(Gdx.files.internal("text.fnt"));
-        labelStyle.font.getData().setScale(0.5f, 0.5f);
 
         p1 = new Texture("item1.png");
         p2 = new Texture("item2.png");
@@ -132,7 +120,6 @@ public class AssetLoader {
         trolley.dispose();
         christmasPresent.dispose();
         font.dispose();
-        shadow.dispose();
         scoreFont.dispose();
         p1.dispose();
         p2.dispose();

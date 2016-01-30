@@ -22,7 +22,7 @@ public class Menu extends State {
     Stage stage;
     int cameraWidth = FallingPresentsGame.WIDTH / 2;
     int cameraHeight = FallingPresentsGame.HEIGHT / 2;
-    private BitmapFont fontTitle, shadow;
+    private BitmapFont fontTitle;
     boolean isLeaderboardOn;
 
     public Menu(final GameStateManager gcm) {
@@ -31,8 +31,6 @@ public class Menu extends State {
         background = AssetLoader.background;
         fontTitle = AssetLoader.font;
         fontTitle.getData().setScale(1.2f, 1.2f);
-        shadow = AssetLoader.shadow;
-        shadow.getData().setScale(1.2f, 1.2f);
         stage = new Stage();
         initializeButtons();
         stage.addActor(playButton);
@@ -144,8 +142,7 @@ public class Menu extends State {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
-        String title = "MAIN MENU";
-        shadow.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 24), (FallingPresentsGame.HEIGHT / 8) * 3);
+        String title = "Main Menu";
         fontTitle.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 24), (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
         stage.getViewport().setCamera(camera);
