@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.appodeal.ads.Appodeal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -59,11 +60,12 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 	private static final String BANNER_AD_UNIT_ID = "ca-app-pub-6044705985167929/8567710899";
 	private static final String BANNER_TEST = "ca-app-pub-3940256099942544/6300978111";
 	private static final String FB_APP_ID = "1000906476636146";
-	AdView bannerAd;
 	LoginButton loginFB;
 	AccessToken accessToken;
 	Profile profile;
 	CallbackManager callbackManager;
+	AdView adView;
+	RelativeLayout L1;
 
 	@Override
 	protected void onPause() {
@@ -77,65 +79,57 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 		AppEventsLogger.activateApp(this);
 	}
 
+	/*@Override
+	protected void onStop()
+	{
+		unregisterReceiver(callbackManager);
+		this.unregisterReceiver(this);
+		super.onStop();
+	}*/
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Create the GameHelper.
-		/*gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
-		gameHelper.enableDebugLog(false);
-		GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener()
-		{
-			@Override
-			public void onSignInSucceeded()
-			{
-			}
 
-			@Override
-			public void onSignInFailed()
-			{
-			}
-		};
-		gameHelper.setMaxAutoSignInAttempts(0);
-		gameHelper.setup(gameHelperListener);*/
-		setupAds();
 		FacebookSdk.sdkInitialize(getApplicationContext());
+		setContentView(R.layout.menu_view);
 		callbackManager = CallbackManager.Factory.create();
-		initializeFBButton(callbackManager);
 		printFBKeyHash();
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		//initialize(new FallingPresentsGame(this), config);
 		View gameView = initializeForView(new FallingPresentsGame(this, this), config);
-		defineAdLayoutMenu(gameView);
 		//defineAdLayout(gameView);
+		newLayout(gameView);
+		initializeFBButton(callbackManager);
 	}
 
-	public void defineAdLayout(View gameView){
-		RelativeLayout layout1 = new RelativeLayout(this);
-		layout1.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.MATCH_PARENT);
-
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		layout1.addView(bannerAd, params);
-
-		setContentView(layout1);
-	}
-
-	public void defineAdLayoutMenu(View gameView){
-		RelativeLayout layout = new RelativeLayout(this);
-		layout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.MATCH_PARENT);
-
+	public void newLayout(View gameView){
+		L1 = (RelativeLayout)findViewById(R.id.L1);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.WRAP_CONTENT,
 				ViewGroup.LayoutParams.WRAP_CONTENT);
-		//params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		params.addRule(RelativeLayout.CENTER_IN_PARENT);
-		layout.addView(loginFB, params);
+		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 
-		setContentView(layout);
+		L1.addView(gameView, params);
+		initAd();
+		initializeAppodeal();
+		gameView.bringToFront();
+		adView.bringToFront();
+		//loginFB.bringToFront();
+		//adView.bringToFront();
+	}
+
+	public void initAd(){
+		adView = (AdView) findViewById(R.id.adView4);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		adView.loadAd(adRequest);
+	}
+
+	private void initializeAppodeal(){
+		String appKey = "93ab8c01d9c1f8ef98d534fec4465d746bbf6f675be62c7a";
+		Appodeal.initialize(this, appKey, Appodeal.BANNER);
+		Appodeal.setTesting(true);
+		Appodeal.setLogging(true);
+		//Appodeal.show(AndroidLauncher.this, Appodeal.BANNER);
 	}
 
 	public void share(String type, String caption){
@@ -150,15 +144,6 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
 		// Broadcast the Intent.
 		startActivity(Intent.createChooser(share, "Share to"));
-	}
-
-	public void setupAds() {
-		bannerAd = new AdView(this);
-		bannerAd.setVisibility(View.INVISIBLE);
-		bannerAd.setBackgroundColor(0xff000000); // black
-		bannerAd.setAdUnitId(BANNER_AD_UNIT_ID);
-		//bannerAd.setAdUnitId(BANNER_TEST);
-		bannerAd.setAdSize(AdSize.SMART_BANNER);
 	}
 
 	private void printFBKeyHash(){
@@ -179,7 +164,8 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 	}
 
 	private void initializeFBButton(CallbackManager callbackManager){
-		loginFB = new LoginButton(this);
+		loginFB = (LoginButton) findViewById(R.id.login_button);
+		loginFB.bringToFront();
 		loginFB.setReadPermissions("user_friends");
 		// If using in a fragment
 		//loginFB.setFragment(this);
@@ -227,93 +213,16 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 				});
 	}
 
-/*	//Sign in to Google Play
-	@Override
-	public void signIn() {
-		try
-		{
-			runOnUiThread(new Runnable()
-			{
-				//@Override
-				public void run()
-				{
-					gameHelper.beginUserInitiatedSignIn();
-				}
-			});
-		}
-		catch (Exception e)
-		{
-			Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
-		}
-	}
-
-	@Override
-	public void signOut() {
-		try
-		{
-			runOnUiThread(new Runnable()
-			{
-				//@Override
-				public void run()
-				{
-					gameHelper.signOut();
-				}
-			});
-		}
-		catch (Exception e)
-		{
-			Gdx.app.log("MainActivity", "Log out failed: " + e.getMessage() + ".");
-		}
-	}
-
-	@Override
-	public void rateGame() {}
-
-	//Submit score to leaderboard
-	@Override
-	public void submitScore(long score) {
-		if (isSignedIn())
-		{
-			Games.Leaderboards.submitScore(gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
-			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		}
-		else
-		{
-// Maybe sign in here then redirect to submitting score?
-			signIn();
-			submitScore(score);
-			//Games.Leaderboards.submitScore(gameHelper.getApiClient(), getString(R.string.leaderboard_id), score);
-			//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		}
-	}
-
-	@Override
-	public void showScores() {
-		if (isSignedIn())
-			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		else
-		{
-// Maybe sign in here then redirect to showing scores?
-			signIn();
-			showScores();
-			//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), getString(R.string.leaderboard_id)), REQUEST_CODE_UNUSED);
-		}
-	}
-
-	@Override
-	public boolean isSignedIn() {
-		return gameHelper.isSignedIn();
-	}*/
-
 	@Override
 	public void showBannerAd() {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				bannerAd.setVisibility(View.VISIBLE);
-				AdRequest.Builder builder = new AdRequest.Builder();
+				adView.setVisibility(View.VISIBLE);
+				/*AdRequest.Builder builder = new AdRequest.Builder();
 				AdRequest ad = builder.build();
-				bannerAd.loadAd(ad);
+				adView.loadAd(ad);*/
+				Appodeal.show(AndroidLauncher.this, Appodeal.BANNER);
 			}
 		});
 	}
@@ -323,7 +232,8 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				bannerAd.setVisibility(View.INVISIBLE);
+				adView.setVisibility(View.INVISIBLE);
+				Appodeal.hide(AndroidLauncher.this, Appodeal.BANNER);
 			}
 		});
 	}
@@ -391,13 +301,13 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
 	@Override
 	public void showFbButton() {
-		loginFB.setVisibility(View.VISIBLE);
-		/*runOnUiThread(new Runnable() {
+		//loginFB.setVisibility(View.VISIBLE);
+		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				loginFB.setVisibility(View.VISIBLE);
 			}
-		});*/
+		});
 	}
 
 	@Override
@@ -442,6 +352,13 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 		).executeAndWait();
 
 		return list;
+	}
+
+	@Override
+	public void startLeaderboardActivity() {
+		Leaderboard.leaderboardArray = postLeaderboard();
+		Intent i = new Intent(this, Leaderboard.class);
+		startActivity(i);
 	}
 
 	@Override
