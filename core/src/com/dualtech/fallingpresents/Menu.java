@@ -143,7 +143,7 @@ public class Menu extends State {
         sb.begin();
         sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         String title = "Main Menu";
-        fontTitle.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 24), (FallingPresentsGame.HEIGHT / 8) * 3);
+        fontTitle.draw(sb, title, FallingPresentsGame.WIDTH / 4 - (title.length() * 28), (FallingPresentsGame.HEIGHT / 8) * 3);
         sb.end();
         stage.getViewport().setCamera(camera);
         stage.draw();
