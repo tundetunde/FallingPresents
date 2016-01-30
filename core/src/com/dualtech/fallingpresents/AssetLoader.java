@@ -34,7 +34,7 @@ public class AssetLoader {
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
         shadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
         scoreFont = new BitmapFont(Gdx.files.internal("text.fnt"));
-        background = new Texture("valbg.jpg");
+        background = new Texture("valbg.png");
         splash = new Texture("splash.png");
         trolley = new Texture("trolley.png");
 
